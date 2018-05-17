@@ -1,12 +1,12 @@
 import React from 'react';
-import { Actions, Drawer, Router, Tabs, Stack, Scene } from 'react-native-router-flux';
+import { Actions, Drawer, Router, Scene } from 'react-native-router-flux';
 import MenuIcon from '../images/menu_burger.png';
 import { 
   LoginForm, 
   SplashScreen, 
   DrawerContent,
   Main,
-  Profile,
+  MyBets
 } from './components';
 
 const sceneConfig = {
@@ -32,7 +32,7 @@ const RouterComponent = () => {
     <Router 
       tintColor='black' 
       backAndroidHandler={() => {
-        if (Actions.currentScene === 'login' || Actions.currentScene === '_listaConversas' || Actions.currentScene === 'splash') {
+        if (Actions.currentScene === 'login' || Actions.currentScene === 'jogos' || Actions.currentScene === 'splash') {
           return false;
         }
         Actions.pop();
@@ -48,58 +48,10 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="main" {...sceneConfig}>
           <Drawer hideNavBar key="drawer" contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
-            <Scene panHandlers={null}>
-              <Tabs
-                hideNavBar
-                key="tabbar"
-                tabBarPosition="bottom"
-                swipeEnabled
-              >
-                <Stack
-                  key="tab_1"
-                  title="Main"
-                  tabBarLabel="Jogos"
-                  initial
-                >
-                  <Scene 
-                    key="principal"
-                    component={Main} 
-                    title="Jogos" 
-                    {...sceneConfig}
-                  />
-                </Stack>
-
-                <Stack
-                  key="tab_2"
-                  title="Minhas apostas"
-                >
-                  <Scene 
-                    key="principal2"
-                    component={Main} 
-                    title="Minhas apostas" 
-                    {...sceneConfig}
-                  />
-                </Stack>
-
-                <Stack key="tab_3" title="Ranking">
-                  <Scene 
-                      key="principal"
-                      component={Main} 
-                      title="Ranking" 
-                      {...sceneConfig}
-                  />
-                </Stack>
-              </Tabs>
-            </Scene>
-
-            <Scene 
-              key="principal"
-              component={Main} 
-              title="My Collection" 
-              {...sceneConfig}
-            />
+            <Scene key="jogos" component={Main} title="Jogos" {...sceneConfig} />
           </Drawer>
-          <Scene key="profile" component={Profile} title="Perfil" {...sceneConfig} />
+          <Scene key="apostas" component={MyBets} title="Minhas apostas" {...sceneConfig} />
+          <Scene key="ranking" component={Main} title="Ranking" {...sceneConfig} />
         </Scene>
       </Scene>
     </Router>

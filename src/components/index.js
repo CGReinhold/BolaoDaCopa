@@ -1,9 +1,9 @@
 import LoginForm from './LoginForm';
 import Main from './Main';
-import Profile from './Profile';
+import MyBets from './MyBets';
 
 export * from './DrawerContent';
 export * from './SplashScreen';
 export { LoginForm };
 export { Main };
-export { Profile };
+export { MyBets };

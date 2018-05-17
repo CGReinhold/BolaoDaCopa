@@ -11,12 +11,26 @@ class DrawerContent extends Component {
     Actions.auth({ type: 'reset' });
   }
 
+  onApostasPress() {
+    Actions.apostas();
+  }
+
+  onRankingPress() {
+    Actions.ranking();
+  }
+
   render() {
     return (
       <View>
         <View style={styles.header}>
           <Image source={Images.logo} />
         </View>
+        <DrawerButton icon={Images.dice} onPress={this.onApostasPress.bind(this)}>
+          Minhas apostas
+        </DrawerButton>
+        <DrawerButton icon={Images.trophy} onPress={this.onRankingPress.bind(this)}>
+          Ranking
+        </DrawerButton>
         <DrawerButton icon={Images.logout} onPress={this.onLogoutPress.bind(this)}>
           Sair
         </DrawerButton>

@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Spinner } from './common';
 import { matchesFetch } from '../actions';
-import Match from './Match';
+import ChangeableMatch from './ChangeableMatch';
 
-class Main extends Component {
+class MyBets extends Component {
   componentWillMount() {
     this.props.matchesFetch();
   }
 
   renderItem({ item }) {
-    if (item.type === 'group') return <Match match={item} />;
+    if (item.type === 'group') return <ChangeableMatch match={item} />;
   }
 
   render() {
@@ -29,10 +29,24 @@ class Main extends Component {
 }
 
 const styles = StyleSheet.create({
+  box1: {
+    flex: 1
+  },
   container: {
     flex: 1,
     backgroundColor: '#efefef'
   },
+  text: {
+    textAlign: 'center',
+    fontSize: 50,
+    backgroundColor: 'transparent'
+  },
+  done: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: 'white',
+    backgroundColor: 'transparent'
+  }
 });
 
 const mapStateToProps = state => {
@@ -41,4 +55,4 @@ const mapStateToProps = state => {
   return { partidas };
 };
 
-export default connect(mapStateToProps, { matchesFetch })(Main);
+export default connect(mapStateToProps, { matchesFetch })(MyBets);

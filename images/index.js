@@ -14,6 +14,8 @@ const images = {
     cancel: require('./cancel.png'),
     cart: require('./cart.png'),
     produto: require('./box.png'),
+    trophy: require('./trophy.png'),
+    dice: require('./dice.png'),
     emptyAvatar: EMPTY_AVATAR,
     emptyAvatarBig: EMPTY_AVATAR_BIG,
 };

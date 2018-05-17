@@ -14,15 +14,13 @@ export const matchesFetch = () => {
       .once('value', snapshot => {
         const times = _.map(snapshot.val(), (val, uid) => { return { ...val, uid }; });
 
-        firebase.database().ref('/groups')
+        firebase.database().ref('/matches')
         .once('value', snapshot2 => {
-          const grupos = _.map(snapshot2.val(), (val, uid) => { return { ...val, uid }; });
+          const matches = _.map(snapshot2.val(), (val, uid) => { return { ...val, uid }; });
           const partidas = { partidas: [] };
-          grupos.forEach(grupo => {
-            grupo.matches.forEach(match => {
-              const partida = { ...match, away_team: times.filter(time => time.id === match.away_team), home_team: times.filter(time => time.id === match.home_team) };
-              partidas.partidas.push(partida);
-            });
+          matches.forEach(match => {
+            const partida = { ...match, away_team: times.filter(time => time.id === match.away_team), home_team: times.filter(time => time.id === match.home_team) };
+            partidas.partidas.push(partida);
           });
 
           dispatch({ type: MATCHES_FETCH_SUCCESS, payload: partidas });
