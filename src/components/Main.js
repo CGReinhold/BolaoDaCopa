@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { partidas } = state.matches;
-  console.log(JSON.stringify(partidas));
   return { partidas };
 };
 

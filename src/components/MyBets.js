@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Spinner } from './common';
-import { matchesFetch } from '../actions';
+import { myBetsFetch } from '../actions';
 import ChangeableMatch from './ChangeableMatch';
 
 class MyBets extends Component {
   componentWillMount() {
-    this.props.matchesFetch();
+    this.props.myBetsFetch();
   }
 
   renderItem({ item }) {
@@ -18,10 +18,12 @@ class MyBets extends Component {
     if (this.props.loading) return <Spinner size="small" />;
     return (
       <View style={styles.container}>
-        <FlatList
+        <FlatList        
           data={this.props.partidas}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString()}
+          keyboardShouldPersistTaps="always"
+          keyboardDismissMode="on-drag"
         />
       </View>
     );
@@ -50,9 +52,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { partidas } = state.matches;
-  console.log(JSON.stringify(partidas));
-  return { partidas };
+  const { myBets } = state.bets;
+  return { myBets };
 };
 
-export default connect(mapStateToProps, { matchesFetch })(MyBets);
+export default connect(mapStateToProps, { myBetsFetch })(MyBets);

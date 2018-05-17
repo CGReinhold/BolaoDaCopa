@@ -29,7 +29,6 @@ export const matchesFetch = () => {
           dispatch({ type: MATCHES_FETCH_SUCCESS, payload: JSON.stringify(err) });
         });
       })
-      .then()
       .catch((err) => {
         dispatch({ type: MATCHES_FETCH_SUCCESS, payload: JSON.stringify(err) });
       });

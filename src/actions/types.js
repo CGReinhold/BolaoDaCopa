@@ -10,3 +10,5 @@ export const MATCHES_LOADING = 'matches_loading';
 export const MATCHES_FETCH_SUCCESS = 'matches_fetch_success';
 
 export const SET_BET = 'set_bet';
+export const BETS_LOADING = 'bets_loading';
+export const BETS_FETCH_SUCCESS = 'bets_fetch_success';
