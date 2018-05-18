@@ -7,6 +7,10 @@ import { setBet } from '../actions';
 class Match extends Component {
   state = { homeScore: null, awayScore: null }
 
+  componentWillMount() {
+    
+  }
+
   render() {
     const { match } = this.props;
 

@@ -10,7 +10,7 @@ export default (state = INITIAL_STATE, action) => {
   if (!state) state = {};
   switch (action.type) {
     case BETS_FETCH_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, myBets: action.payload };
     case BETS_LOADING:
       return { ...state, loading: true };
     case SET_BET:

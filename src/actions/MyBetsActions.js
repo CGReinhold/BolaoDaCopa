@@ -10,21 +10,17 @@ import {
 export const myBetsFetch = () => {
   return (dispatch) => {
     dispatch({ type: BETS_LOADING });
-    try {
-      const { uid } = firebase.auth().currentUser;
-      console.log('caiu aqui');
+    const { uid } = firebase.auth().currentUser;
 
-      firebase.database().ref(`/users/${uid}`)
-      .once('value', snapshot => {
-        const bets = _.map(snapshot.val(), (val, u) => { return { ...val, u }; });
-        console.log('bets: ' + JSON.stringify(bets));
-      })
-      .catch((err) => {
-        dispatch({ type: BETS_FETCH_SUCCESS, payload: JSON.stringify(err) });
-      });
-    } catch (err) {
+    firebase.database().ref(`/users/${uid}`)
+    .once('value', snapshot => {
+      const bets = _.map(snapshot.val(), (val, u) => { return { ...val, u }; });
+      console.log('bets: ' + JSON.stringify(bets));
+      dispatch({ type: BETS_FETCH_SUCCESS, payload: bets });
+    })
+    .catch((err) => {
       dispatch({ type: BETS_FETCH_SUCCESS, payload: { erro: JSON.stringify(err) } });
-    }
+    });
   };
 };
 
