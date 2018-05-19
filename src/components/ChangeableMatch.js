@@ -1,19 +1,31 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React from 'react';
 import { Image, Text, TextInput, View } from 'react-native';
 import moment from 'moment';
 import { setBet } from '../actions';
 
-class Match extends Component {
+class Match extends React.PureComponent {
   state = { homeScore: null, awayScore: null }
 
-  componentWillMount() {
-    
+  componentDidMount() {
+    const { match, bets } = this.props;
+    if (bets && bets.myBets && bets.myBets[0]) {
+      const myBet = bets.myBets.filter(bet => bet.u.toString() === match.name.toString());
+      if (myBet[0]) {
+        if (myBet[0].homeScore) {
+          this.setState({ homeScore: myBet[0].homeScore });
+        }
+        if (myBet[0].awayScore) {
+          this.setState({ awayScore: myBet[0].awayScore });
+        }
+      }
+    }
   }
 
   render() {
     const { match } = this.props;
 
+    //TODO: Descobrir porque está lento quando vai trocar de text input selecionado
     return (
       <View style={styles.parentView}>
         <View style={{ alignItems: 'center' }}>
@@ -25,9 +37,11 @@ class Match extends Component {
           <TextInput 
             style={styles.inputStyle} 
             onChangeText={text => { 
+              
               this.setState({ homeScore: text }); 
               this.props.setBet({ match: match.name, homeScore: text, awayScore: this.state.awayScore });
-            }} 
+            }}
+            value={this.state.homeScore}
             keyboardType={'numeric'}
           />
           <Text style={styles.textCenter}>X</Text>
@@ -36,7 +50,8 @@ class Match extends Component {
             onChangeText={text => { 
               this.setState({ awayScore: text }); 
               this.props.setBet({ match: match.name, homeScore: this.state.homeScore, awayScore: text });
-            }} 
+            }}
+            value={this.state.awayScore}
             keyboardType={'numeric'}
           />
           <Text style={styles.textStyle}>{match.away_team[0].fifaCode}</Text>
@@ -86,7 +101,8 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return state;
+  const { bets } = state;
+  return { bets };
 };
 
 export default connect(mapStateToProps, { setBet })(Match);

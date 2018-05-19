@@ -10,15 +10,7 @@ class MyBets extends Component {
     this.props.myBetsFetch();
   }
 
-  renderItem(item, bets) {
-    console.log('item: ' + JSON.stringify(item.name));
-
-    //TODO: Buscar os dados preenchidos do usuário e exibir na tela
-    // if (bets.myBets) {
-    //   const match = bets.myBets.filter(bet => bet.u === item.name.toString());
-    //   console.log('match: ' + JSON.stringify(match.homeCcore));
-    //   if (item.type === 'group') return <ChangeableMatch match={item} homeScore={match.homeCcore} awayScore={} />;
-    // }
+  renderItem({ item }) {
     if (item.type === 'group') return <ChangeableMatch match={item} />;
   }
 
@@ -28,7 +20,7 @@ class MyBets extends Component {
       <View style={styles.container}>
         <FlatList        
           data={this.props.partidas}
-          renderItem={item => this.renderItem(item.item, this.props.bets)}
+          renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString()}
           keyboardShouldPersistTaps="always"
           keyboardDismissMode="on-drag"
@@ -61,7 +53,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { partidas } = state.matches;
-  return { partidas, bets: state.myBets };
+  if (state.bets.loading) {
+    console.log('loading: ' + JSON.stringify(state.bets));
+    return { partidas, loading: state.bets.loading };
+  }
+  return { partidas };
 };
 
 export default connect(mapStateToProps, { myBetsFetch })(MyBets);

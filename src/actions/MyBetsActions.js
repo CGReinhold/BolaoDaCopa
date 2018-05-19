@@ -15,7 +15,6 @@ export const myBetsFetch = () => {
     firebase.database().ref(`/users/${uid}`)
     .once('value', snapshot => {
       const bets = _.map(snapshot.val(), (val, u) => { return { ...val, u }; });
-      console.log('bets: ' + JSON.stringify(bets));
       dispatch({ type: BETS_FETCH_SUCCESS, payload: bets });
     })
     .catch((err) => {

@@ -6,5 +6,5 @@ import MyBetsReducer from './MyBetsReducer';
 export default combineReducers({
   auth: AuthReducer,
   matches: MatchesReducer,
-  myBets: MyBetsReducer
+  bets: MyBetsReducer
 });

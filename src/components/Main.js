@@ -15,6 +15,7 @@ class Main extends Component {
   }
 
   render() {
+    //TODO: Exibir só spinner enquanto não carregou a janela. Verificar porque não está funcionando direito
     if (this.props.loading) return <Spinner size="small" />;
     return (
       <View style={styles.container}>
