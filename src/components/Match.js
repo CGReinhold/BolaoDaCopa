@@ -8,17 +8,17 @@ class Match extends Component {
 
     return (
       <View style={styles.parentView}>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={styles.textCenter}>{moment(new Date(match.date)).format('DD/MM/YYYY HH:mm')}</Text>
-        </View>
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
-          <Text style={styles.textStyle}>{match.home_team[0].fifaCode}</Text>
-          <Text style={styles.textCenter}>{''}</Text>
-          <Text style={styles.textCenter}>X</Text>
-          <Text style={styles.textCenter}>{''}</Text>
-          <Text style={styles.textStyle}>{match.away_team[0].fifaCode}</Text>
+          <Text style={styles.textStyleHome}>{match.home_team[0].fifaCode}</Text>
+          <Text style={styles.resultTextCenter}>{'0'}</Text>
+          <Text style={styles.textCenter}>x</Text>
+          <Text style={styles.resultTextCenter}>{'0'}</Text>
+          <Text style={styles.textStyleAway}>{match.away_team[0].fifaCode}</Text>
           <Image style={styles.imageStyle} source={{ uri: match.away_team[0].flag }} />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={styles.textCenter}>{moment(new Date(match.date)).format('DD/MM/YYYY HH:mm')}</Text>
         </View>
       </View>
     );
@@ -38,16 +38,36 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8
+    paddingTop: 6,
+    paddingLeft: 6,
+    paddingRight: 6,
+    paddingBottom: 0
   },
-  textStyle: {
+  textStyleAway: {
     fontSize: 15,
     fontWeight: 'bold',
-    flex: 2
+    flex: 2,
+    textAlign: 'right',
+    paddingRight: 6
+  },
+  textStyleHome: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    flex: 2,
+    paddingLeft: 6
+  },
+  resultTextCenter:
+  {
+    flex: 1,
+    fontSize: 22,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   textCenter: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
     flex: 1
   },
   imageStyle: {
