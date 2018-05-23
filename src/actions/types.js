@@ -15,3 +15,7 @@ export const BETS_LOADING = 'bets_loading';
 export const BETS_FETCH_SUCCESS = 'bets_fetch_success';
 
 export const APRENDENDO = 'aprendendo';
+
+export const GROUPSANDGAMES_LOADING = 'results_loading';
+export const GROUPSANDGAMES_SUCCESS = 'results_success';
+export const GROUPSANDGAMES_FAIL = 'results_fail';

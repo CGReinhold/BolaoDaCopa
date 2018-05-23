@@ -16,8 +16,7 @@ export const testeFetch = () => {
                 });
 
                 const gruposObj = { listaGrupos: grupos };
-                debugger;
-                //Console.log(JSON.stringify(gruposObj));
+                console.log(JSON.stringify(gruposObj));
                 dispatch({ type: APRENDENDO, payload: gruposObj });
            }).catch((err) => {
             dispatch({ type: MATCHES_FETCH_ERROR, payload: JSON.stringify(err) });
