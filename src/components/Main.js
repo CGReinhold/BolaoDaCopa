@@ -2,12 +2,13 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Spinner } from './common';
-import { matchesFetch } from '../actions';
+import { matchesFetch, testeFetch } from '../actions';
 import Match from './Match';
 
 class Main extends Component {
   componentWillMount() {
     this.props.matchesFetch();
+    this.props.testeFetch();
   }
 
   renderItem({ item }) {
@@ -41,4 +42,4 @@ const mapStateToProps = state => {
   return { partidas };
 };
 
-export default connect(mapStateToProps, { matchesFetch })(Main);
+export default connect(mapStateToProps, { matchesFetch, testeFetch })(Main);
