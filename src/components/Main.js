@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Spinner } from './common';
-import { matchesFetch, testeFetch } from '../actions';
+  import { matchesFetch, groupsAndGamesFetch } from '../actions';
 import Match from './Match';
 
 class Main extends Component {
   componentWillMount() {
     this.props.matchesFetch();
-    this.props.testeFetch();
+    this.props.groupsAndGamesFetch();
   }
 
   renderItem({ item }) {
@@ -17,7 +17,10 @@ class Main extends Component {
 
   render() {
     //TODO: Exibir só spinner enquanto não carregou a janela. Verificar porque não está funcionando direito
-    if (this.props.loading) return <Spinner size="small" />;
+    if (this.props.loading) {      
+      return <Spinner size="small" />;
+    }
+    
     return (
       <View style={styles.container}>
         <FlatList
@@ -38,8 +41,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { partidas } = state.matches;
-  return { partidas };
+    const { partidas } = state.matches;
+    const { groups } = state.groupsAndGames;
+
+  return { partidas, groups };
 };
 
-export default connect(mapStateToProps, { matchesFetch, testeFetch })(Main);
+export default connect(mapStateToProps, { matchesFetch, groupsAndGamesFetch })(Main);

@@ -6,7 +6,8 @@ import {
   SplashScreen, 
   DrawerContent,
   Main,
-  MyBets
+  MyBets, 
+  GamesResults
 } from './components';
 
 const sceneConfig = {
@@ -52,7 +53,9 @@ const RouterComponent = () => {
           </Drawer>
           <Scene key="apostas" component={MyBets} title="Minhas apostas" {...sceneConfig} />
           <Scene key="ranking" component={Main} title="Ranking" {...sceneConfig} />
+          {/*<Scene key="games" component={GamesResults} title="GamesResults" {...sceneConfig} />  */}
         </Scene>
+        
       </Scene>
     </Router>
   );
