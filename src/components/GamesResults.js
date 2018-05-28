@@ -32,7 +32,18 @@ const styles = StyleSheet.create({
 });
 
 const estadoComp = state => {    
-    const { gruposInf } = state.groupsAndGames;
+    let sss = null;
+
+    try {
+        if (state.groupsAndGames.listaGruposEJogos) {
+            sss = state.groupsAndGames.listaGruposEJogos; 
+        } else {
+            sss = state.groupsAndGames;
+        }
+    } catch (err) {
+        sss = state.groupsAndGames;
+    }
+    const { gruposInf } = sss;
 
     return { gruposInf };
 };

@@ -2,13 +2,12 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Spinner } from './common';
-  import { matchesFetch, groupsAndGamesFetch } from '../actions';
+  import { matchesFetch } from '../actions';
 import Match from './Match';
 
 class Main extends Component {
   componentWillMount() {
     this.props.matchesFetch();
-    this.props.groupsAndGamesFetch();
   }
 
   renderItem({ item }) {
@@ -42,9 +41,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     const { partidas } = state.matches;
-    const { groups } = state.groupsAndGames;
-
-  return { partidas, groups };
+    
+  return { partidas };
 };
 
-export default connect(mapStateToProps, { matchesFetch, groupsAndGamesFetch })(Main);
+export default connect(mapStateToProps, { matchesFetch })(Main);
