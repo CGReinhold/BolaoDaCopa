@@ -1,19 +1,28 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { groupsAndGamesFetch } from '../actions';
 
 class GamesResults extends Component {
+
     componentWillMount() {
+        index = 0;
         this.props.groupsAndGamesFetch();
     }
 
     render() {
+        index++;
         return (
-            <View styles={styles.container}> {JSON.stringify(this.props.gruposInf)} </View>
+            <View style={styles.container}>
+                <Text>                                       
+                    "Teste" {index + '  ' + JSON.stringify(this.props.gruposInf)} 
+                </Text>
+            </View>
         );
     }
 }
+ 
+let { index } = 0;
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const estadoComp = state => {
+const estadoComp = state => {    
     const { gruposInf } = state.groupsAndGames;
 
     return { gruposInf };

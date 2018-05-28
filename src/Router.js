@@ -52,7 +52,7 @@ const RouterComponent = () => {
             <Scene key="jogos" component={Main} title="Jogos" {...sceneConfig} />
           </Drawer>
           <Scene key="apostas" component={MyBets} title="Minhas apostas" {...sceneConfig} />
-          <Scene key="ranking" component={Main} title="Ranking" {...sceneConfig} />
+          <Scene key="ranking" component={GamesResults} title="Ranking" {...sceneConfig} />
           {/*<Scene key="games" component={GamesResults} title="GamesResults" {...sceneConfig} />  */}
         </Scene>
         
