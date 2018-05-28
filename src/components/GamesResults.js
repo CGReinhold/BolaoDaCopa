@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { groupsAndGamesFetch } from '../actions';
+import { Spinner } from './common';
 
 class GamesResults extends Component {
 
@@ -11,11 +12,14 @@ class GamesResults extends Component {
     }
 
     render() {
+        if (this.props.loading === undefined || this.props.loading) {
+            return <Spinner size="large" />;
+        }
         index++;
         return (
             <View style={styles.container}>
-                <Text>                                       
-                    "Teste" {index + '  ' + JSON.stringify(this.props.gruposInf)} 
+                <Text>
+                    "Teste" {index + '  ' + JSON.stringify(this.props.listaGruposEJogos)} 
                 </Text>
             </View>
         );
@@ -32,20 +36,22 @@ const styles = StyleSheet.create({
 });
 
 const estadoComp = state => {    
-    let sss = null;
+    const { loading, listaGruposEJogos } = state.groupsAndGames;
+    
+    // let sss = null;
 
-    try {
-        if (state.groupsAndGames.listaGruposEJogos) {
-            sss = state.groupsAndGames.listaGruposEJogos; 
-        } else {
-            sss = state.groupsAndGames;
-        }
-    } catch (err) {
-        sss = state.groupsAndGames;
-    }
-    const { gruposInf } = sss;
+    // try {
+    //     if (state.groupsAndGames.listaGruposEJogos) {
+    //         sss = state.groupsAndGames.listaGruposEJogos; 
+    //     } else {
+    //         sss = state.groupsAndGames;
+    //     }
+    // } catch (err) {
+    //     sss = state.groupsAndGames;
+    // }
+    // const { gruposInf } = sss;
 
-    return { gruposInf };
+    return { loading, listaGruposEJogos };
 };
 
 export default connect(estadoComp, { groupsAndGamesFetch })(GamesResults);
