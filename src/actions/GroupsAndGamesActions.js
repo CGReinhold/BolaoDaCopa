@@ -10,14 +10,21 @@ export const groupsAndGamesFetch = () => {
     return (dispatch) => {
         dispatch({ type: GROUPSANDGAMES_LOADING });
 
+        firebase.database().ref('/teams')
+        .once('value', snapshot => {
+        const times = _.map(snapshot.val(), (val, uid) => { return { ...val, uid }; });
+
         try {
-           firebase.database().ref('/groups').once('value', snapshot => {
-                const grupos = _.map(snapshot.val(), (grupo, uid) => {
+           firebase.database().ref('/groups').once('value', base => {
+                const grupos = _.map(base.val(), (grupo, uid) => {
                      return { ...grupo, uid };
                 });
 
-                const gruposJogos = { listaGruposEJogos: grupos };
-                console.log(JSON.stringify(gruposJogos));
+                console.log(JSON.stringify(times));
+                console.log(JSON.stringify(grupos));
+
+                const gruposJogos = { listaGruposEJogos: grupos };               
+                
                 dispatch({ type: GROUPSANDGAMES_SUCCESS, payload: gruposJogos });
            }).catch((err) => {
             dispatch({ type: GROUPSANDGAMES_FAIL, payload: JSON.stringify(err) });
@@ -25,5 +32,6 @@ export const groupsAndGamesFetch = () => {
         } catch (err) {
             dispatch({ type: GROUPSANDGAMES_FAIL, payload: { erro: JSON.stringify(err) } });
         }
+        });
     };
 };

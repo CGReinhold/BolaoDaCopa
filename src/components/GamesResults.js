@@ -14,11 +14,11 @@ class GamesResults extends Component {
     }
 
     renderGroupMatches({ item }) {
-        let primeiraPartida = item.partidas[0];        
-        let segundaPartida = item.partidas[1];        
+        const primeiraPartida = item.partidas[0];        
+        const segundaPartida = item.partidas[1];        
 
-        primeiraPartida.away_team = this.props.selecoes.filter(time => time.id === primeiraPartida.away_team);
-        segundaPartida.home_team = this.props.selecoes.filter(time => time.id === primeiraPartida.home_team);
+        // primeiraPartida.away_team = this.props.selecoes.filter(time => time.id === primeiraPartida.away_team);
+        // segundaPartida.home_team = this.props.selecoes.filter(time => time.id === primeiraPartida.home_team);
 
         return (<View key={item.uid} >
                     <CardSection style={styles.center}>
