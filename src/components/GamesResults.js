@@ -2,27 +2,35 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Pages } from 'react-native-pages';
 import { FlatList, StyleSheet, View, Text } from 'react-native';
-import { groupsAndGamesFetch } from '../actions';
+import { groupsAndGamesFetch, selecoesFetch } from '../actions';
 import { Spinner, CardSection } from './common';
 import Match from './Match';
 
 class GamesResults extends Component {
   
     componentWillMount() {
-        this.props.groupsAndGamesFetch();
+        this.props.selecoesFetch();
+        this.props.groupsAndGamesFetch();        
     }
 
     renderGroupMatches({ item }) {
+        let primeiraPartida = item.partidas[0];        
+        let segundaPartida = item.partidas[1];        
+
+        primeiraPartida.away_team = this.props.selecoes.filter(time => time.id === primeiraPartida.away_team);
+        segundaPartida.home_team = this.props.selecoes.filter(time => time.id === primeiraPartida.home_team);
+
         return (<View key={item.uid} >
                     <CardSection style={styles.center}>
                         <Text>{item.name}</Text>
                     </CardSection>
                     <CardSection style={styles.container}>
-                        <Match Match={item.partidas[0]} />
-                        <Match Match={item.partidas[1]} />
+                        <Match match={primeiraPartida} />
+                        <Match match={segundaPartida} />
                     </CardSection>
                 </View>
                );         
+        
     }
 
     render() {
@@ -36,8 +44,7 @@ class GamesResults extends Component {
            return { name: item.name, uid: item.uid, partidas: partidasGrupos };
         });
 
-        console.clear();
-        console.log(finaleira);
+                
         return (
             <Pages indicatorPosition='bottom' indicatorOpacity={0.40} indicatorColor='rgb(117, 117, 117)' >
                 <View style={styles.container}>
@@ -73,8 +80,9 @@ const styles = StyleSheet.create({
 
 const estadoComp = state => {    
     const { loading, listaGruposEJogos } = state.groupsAndGames;
+    const { selecoes } = state.selecoes;
 
-    return { loading, listaGruposEJogos };
+    return { loading, listaGruposEJogos, selecoes };
 };
 
-export default connect(estadoComp, { groupsAndGamesFetch })(GamesResults);
+export default connect(estadoComp, { groupsAndGamesFetch, selecoesFetch })(GamesResults);

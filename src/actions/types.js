@@ -19,3 +19,6 @@ export const APRENDENDO = 'aprendendo';
 export const GROUPSANDGAMES_LOADING = 'results_loading';
 export const GROUPSANDGAMES_SUCCESS = 'results_success';
 export const GROUPSANDGAMES_FAIL = 'results_fail';
+
+export const SELECOES_LOADING = 'selecoes_loading';
+export const SELECOES_SUCCESS = 'selecoes_success';

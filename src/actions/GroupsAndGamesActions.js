@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {
     GROUPSANDGAMES_LOADING,
     GROUPSANDGAMES_SUCCESS,
-    GROUPSANDGAMES_FAIL
+    GROUPSANDGAMES_FAIL 
 } from './types';
 
 export const groupsAndGamesFetch = () => {
