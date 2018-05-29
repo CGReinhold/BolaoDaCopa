@@ -1,55 +1,78 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { Pages } from 'react-native-pages';
+import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { groupsAndGamesFetch } from '../actions';
-import { Spinner } from './common';
+import { Spinner, CardSection } from './common';
+import Match from './Match';
 
 class GamesResults extends Component {
-
+  
     componentWillMount() {
-        index = 0;
         this.props.groupsAndGamesFetch();
+    }
+
+    renderGroupMatches({ item }) {
+        return (<View key={item.uid} >
+                    <CardSection style={styles.center}>
+                        <Text>{item.name}</Text>
+                    </CardSection>
+                    <CardSection style={styles.container}>
+                        <Match Match={item.partidas[0]} />
+                        <Match Match={item.partidas[1]} />
+                    </CardSection>
+                </View>
+               );         
     }
 
     render() {
         if (this.props.loading === undefined || this.props.loading) {
             return <Spinner size="large" />;
         }
-        index++;
+
+        const jogosPrimeiraRodada = this.props.listaGruposEJogos;
+        const finaleira = jogosPrimeiraRodada.map(item => {
+           const partidasGrupos = item.matches.filter(partidas => partidas.matchday === 1);
+           return { name: item.name, uid: item.uid, partidas: partidasGrupos };
+        });
+
+        console.clear();
+        console.log(finaleira);
         return (
-            <View style={styles.container}>
-                <Text>
-                    "Teste" {index + '  ' + JSON.stringify(this.props.listaGruposEJogos)} 
-                </Text>
-            </View>
+            <Pages indicatorPosition='bottom' indicatorOpacity={0.40} indicatorColor='rgb(117, 117, 117)' >
+                <View style={styles.container}>
+                    <CardSection style={styles.center}>
+                        <Text >{'1ª Rodada'}</Text>                        
+                    </CardSection>
+                    <CardSection>
+                        <FlatList 
+                                style={styles.container}
+                                data={finaleira}
+                                keyExtractor={(item, index) => item.uid + index.toString()}
+                                renderItem={this.renderGroupMatches} 
+                        />
+                    </CardSection>
+                </View>
+                <View style={{ flex: 1, backgroundColor: 'green' }} />
+                <View style={{ flex: 1, backgroundColor: 'blue' }} />
+            </Pages>
         );
     }
 }
- 
-let { index } = 0;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#efefef'
+    backgroundColor: '#efefef',    
   },
+
+  center: {
+      justifyContent: 'center'
+  }
 });
 
 const estadoComp = state => {    
     const { loading, listaGruposEJogos } = state.groupsAndGames;
-    
-    // let sss = null;
-
-    // try {
-    //     if (state.groupsAndGames.listaGruposEJogos) {
-    //         sss = state.groupsAndGames.listaGruposEJogos; 
-    //     } else {
-    //         sss = state.groupsAndGames;
-    //     }
-    // } catch (err) {
-    //     sss = state.groupsAndGames;
-    // }
-    // const { gruposInf } = sss;
 
     return { loading, listaGruposEJogos };
 };
