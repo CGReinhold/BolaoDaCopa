@@ -4,8 +4,6 @@ import { CardSection } from './common';
 import Match from './Match';
 
 const ListGames = ({ title, jogosPorGruposDaRodada }) => {
-                console.log(title);
-                console.log(JSON.stringify(jogosPorGruposDaRodada));
                 return (
                     <View style={styles.container} >
                         <CardSection style={styles.center}>
