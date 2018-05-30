@@ -4,8 +4,7 @@ import MenuIcon from '../images/menu_burger.png';
 import { 
   LoginForm, 
   SplashScreen, 
-  DrawerContent,
-  Main,
+  DrawerContent,  
   MyBets, 
   GamesResults
 } from './components';
@@ -49,11 +48,10 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="main" {...sceneConfig}>
           <Drawer hideNavBar key="drawer" contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
-            <Scene key="jogos" component={Main} title="Jogos" {...sceneConfig} />
+            <Scene key="jogos" component={GamesResults} title="Jogos" {...sceneConfig} />
           </Drawer>
           <Scene key="apostas" component={MyBets} title="Minhas apostas" {...sceneConfig} />
-          <Scene key="ranking" component={GamesResults} title="Ranking" {...sceneConfig} />
-          {/*<Scene key="games" component={GamesResults} title="GamesResults" {...sceneConfig} />  */}
+          <Scene key="ranking" component={GamesResults} title="Ranking" {...sceneConfig} />          
         </Scene>
         
       </Scene>

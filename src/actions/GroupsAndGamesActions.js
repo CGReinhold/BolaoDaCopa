@@ -20,10 +20,15 @@ export const groupsAndGamesFetch = () => {
                      return { ...grupo, uid };
                 });
 
-                console.log(JSON.stringify(times));
-                console.log(JSON.stringify(grupos));
+                const tempGrups = grupos.map(item => {
+                    const ligacao = item.matches.map(partidaVinculo => {
+                        return { ...partidaVinculo, away_team: times.filter(selecao => selecao.id === partidaVinculo.away_team), home_team: times.filter(selecao => selecao.id === partidaVinculo.home_team) };
+                    });                    
 
-                const gruposJogos = { listaGruposEJogos: grupos };               
+                    return { ...item, matches: ligacao };
+                });
+
+                const gruposJogos = { listaGruposEJogos: tempGrups };               
                 
                 dispatch({ type: GROUPSANDGAMES_SUCCESS, payload: gruposJogos });
            }).catch((err) => {
