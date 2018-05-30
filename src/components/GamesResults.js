@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Pages } from 'react-native-pages';
-import { groupsAndGamesFetch, selecoesFetch } from '../actions';
+import { groupsAndGamesFetch, matchesFetch } from '../actions';
 import { Spinner } from './common';
 import ListGames from './ListGames';
 
 class GamesResults extends Component {
   
     componentWillMount() {
-        this.props.selecoesFetch();
+        this.props.matchesFetch();
         this.props.groupsAndGamesFetch();        
     }
 
@@ -43,4 +43,4 @@ const estadoComp = state => {
     return { loading, listaGruposEJogos, selecoes };
 };
 
-export default connect(estadoComp, { groupsAndGamesFetch, selecoesFetch })(GamesResults);
+export default connect(estadoComp, { groupsAndGamesFetch, matchesFetch })(GamesResults);
