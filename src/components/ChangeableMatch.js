@@ -37,7 +37,6 @@ class Match extends React.PureComponent {
           <TextInput 
             style={styles.inputStyle} 
             onChangeText={text => { 
-              
               this.setState({ homeScore: text }); 
               this.props.setBet({ match: match.name, homeScore: text, awayScore: this.state.awayScore });
             }}

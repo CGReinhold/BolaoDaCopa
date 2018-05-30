@@ -54,3 +54,5 @@ buck-out/
 
 android/
 ios/
+
+server/functions/node_modules
