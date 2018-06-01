@@ -6,14 +6,32 @@ class Match extends Component {
   render() {
     const { match } = this.props;
 
+    if (match.home_aposta) {
+        return (
+        <View style={styles.parentView}>
+          <View style={styles.viewStyle}>
+            <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
+            <Text style={styles.textStyleHome}>{match.home_team[0].fifaCode}</Text>
+            <Text style={styles.resultTextCenter}>{ match.home_aposta }</Text>  
+            <Text style={styles.textCenter}>x</Text>
+            <Text style={styles.resultTextCenter}>{ match.away_aposta }</Text>
+            <Text style={styles.textStyleAway}>{match.away_team[0].fifaCode}</Text>
+            <Image style={styles.imageStyle} source={{ uri: match.away_team[0].flag }} />
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.textCenter}>{moment(new Date(match.date)).format('DD/MM/YYYY HH:mm')}</Text>
+          </View>
+        </View>);
+    }
+
     return (
       <View style={styles.parentView}>
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
           <Text style={styles.textStyleHome}>{match.home_team[0].fifaCode}</Text>
-          <Text style={styles.resultTextCenter}>{'0'}</Text>
+          <Text style={styles.resultTextCenter}>{match.home_score ? match.home_score : '0'}</Text>  
           <Text style={styles.textCenter}>x</Text>
-          <Text style={styles.resultTextCenter}>{'0'}</Text>
+          <Text style={styles.resultTextCenter}>{match.away_score ? match.away_score : '0'}</Text>
           <Text style={styles.textStyleAway}>{match.away_team[0].fifaCode}</Text>
           <Image style={styles.imageStyle} source={{ uri: match.away_team[0].flag }} />
         </View>

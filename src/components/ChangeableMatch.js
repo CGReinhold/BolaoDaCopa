@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import { React, PureComponent }from 'react';
 import { Image, Text, TextInput, View } from 'react-native';
 import moment from 'moment';
 import { setBet } from '../actions';
 
-class Match extends React.PureComponent {
+class Match extends PureComponent {
   state = { homeScore: null, awayScore: null }
 
   componentDidMount() {
