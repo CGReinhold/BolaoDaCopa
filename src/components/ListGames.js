@@ -1,7 +1,8 @@
 import React from 'react';
 import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { CardSection } from './common';
-import Match from './Match';
+import ExibirPartida from './ExibirPartidas';
+
 
 const ListGames = ({ title, jogosPorGruposDaRodada }) => {
                 return (
@@ -18,16 +19,14 @@ const ListGames = ({ title, jogosPorGruposDaRodada }) => {
                                                                     <CardSection style={styles.center}>
                                                                         <Text>{item.name}</Text>
                                                                     </CardSection>
-                                                                    <CardSection style={styles.listaPartidas}>
-                                                                        <Match match={item.partidas[0]} />
-                                                                        <Match match={item.partidas[1]} />
-                                                                    </CardSection>
+                                                                    <ExibirPartida partidas={item.partidas} />
                                                                 </View>} 
                             />
                         </CardSection>
                     </View>
                 );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -37,13 +36,7 @@ const styles = StyleSheet.create({
 
   center: {
       justifyContent: 'center'
-  },
-
-  listaPartidas: { 
-      flexDirection: 'column',
-      flex: 1,
-      backgroundColor: '#efefef'
-  }
+  }  
 });
 
 export default ListGames;

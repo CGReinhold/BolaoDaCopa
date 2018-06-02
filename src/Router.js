@@ -5,9 +5,9 @@ import {
   LoginForm, 
   SplashScreen, 
   DrawerContent,  
-  MyBets, 
   GamesResults,
-  Apostas
+  Apostas,
+  EscolherSelecaoCampea
 } from './components';
 
 const sceneConfig = {
@@ -51,8 +51,8 @@ const RouterComponent = () => {
           <Drawer hideNavBar key="drawer" contentComponent={DrawerContent} drawerImage={MenuIcon} drawerWidth={300}>
             <Scene key="jogos" component={GamesResults} title="Jogos" {...sceneConfig} />
           </Drawer>
-          <Scene key="apostas" component={MyBets} title="Minhas apostas" {...sceneConfig} />
-          <Scene key="ranking" component={Apostas} title="Ranking" {...sceneConfig} />          
+          <Scene key="apostas" component={Apostas} title="Minhas apostas" {...sceneConfig} />
+          <Scene key="ranking" component={EscolherSelecaoCampea} title="Seleção campeã" {...sceneConfig} />          
         </Scene>
         
       </Scene>
