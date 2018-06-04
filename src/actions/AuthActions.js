@@ -49,7 +49,8 @@ export const createUser = ({ name, email, password }) => {
           if (firebase.auth().currentUser) {
             const { uid } = firebase.auth().currentUser;
             if (uid) {
-              firebase.database().ref(`users/${uid}`).push({ displayName: name });
+              //firebase.database().ref(`users/${uid}`).push({ displayName: name });
+              firebase.database().ref(`users/${uid}/dados`).push({ displayName: name });
             }
           }
           loginUserSuccess(dispatch);
