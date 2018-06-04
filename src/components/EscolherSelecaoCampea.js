@@ -26,17 +26,24 @@ class EscolherSelecaoCampea extends Component {
         if (this.props.loading === undefined || this.props.loading) {
             return <Spinner size="large" />;
         }
-        
+
         if (this.props.selecao && this.state.selecaoCampeaSelecionada !== this.props.selecao[0].selecaoFifa) {
+            this.setState({ selecaoCampeaSelecionada: this.props.selecao[0].selecaoFifa });
+            return <Spinner size="large" />;
+        }
+
+        if (this.props.selecao && this.state.selecaoCampeaSelecionada) {
             return (
                 <View>
                     <Picker
                         selectedValue={this.state.selecaoCampeaSelecionada}
                         onValueChange={(itemValue, itemIndex) => {
-                            if (this.props.selecao && this.state.selecaoCampeaSelecionada !== this.props.selecao[0].selecaoFifa) {
+                            if (this.props.selecao && this.state.selecaoCampeaSelecionada !== itemValue) {
                                 this.setState({ selecaoCampeaSelecionada: itemValue });
                             }
-                            this.props.setSelecaoCampea(itemValue);
+
+                            const t = itemValue;
+                            this.props.setSelecaoCampea(t);
                         }}
                     >
                         <Picker.Item label="Brasil" value='BRA' />
