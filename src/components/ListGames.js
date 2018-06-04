@@ -12,7 +12,7 @@ const ListGames = ({ title, jogosPorGruposDaRodada }) => {
                         </CardSection>
                         <CardSection>
                             <FlatList 
-                                    style={styles.container}
+                                    // style={styles.container}
                                     data={jogosPorGruposDaRodada}
                                     keyExtractor={(item, index) => item.uid + index.toString()}
                                     renderItem={({ item }) => <View key={item.uid} >

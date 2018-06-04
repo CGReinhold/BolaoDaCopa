@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
         if (action && action.payload) return { ...action.payload, loading: false };
         return { ...state, loading: true };
       case SETSELECAOCAMPEA:
-        return { ...state };
+        return { ...state, ...action.payload };
       default:
         return state;
     }

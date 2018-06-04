@@ -13,23 +13,25 @@ export const selecaoCampeaFetch = () => {
         const { uid } = firebase.auth().currentUser;
 
         firebase.database().ref(`/users/${uid}/dados/selecao`).once('value', snapshot => {
-            const apostaSelecaoCampea = _.map(snapshot.val(), (val, u) => { 
-                console.log(val);
-                return { ...val, u }; 
-            });
+            console.log(snapshot.val());
+            let apostaSelecaoCampea = snapshot.val();
 
+            if (apostaSelecaoCampea) {
+                apostaSelecaoCampea = snapshot.val().selecaoSelecionada;
+            }
+            
             dispatch({ type: SELECAOCAMPEA_SUCCESS, payload: { selecao: apostaSelecaoCampea } });
         });
     };
 };
 
 
-export const setSelecaoCampea = ({ selecaoSelecionada }) => {
+export const setSelecaoCampea = (selecaoSelecionada) => {
     const { uid } = firebase.auth().currentUser;
 
     if (selecaoSelecionada) {
         firebase.database().ref(`/users/${uid}/dados/selecao`).set({ selecaoSelecionada });
     }
 
-    return { type: SETSELECAOCAMPEA };
+    return { type: SETSELECAOCAMPEA, payload: { selecao: selecaoSelecionada } };
 };

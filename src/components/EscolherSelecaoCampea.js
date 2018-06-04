@@ -6,68 +6,33 @@ import { selecaoCampeaFetch, setSelecaoCampea } from '../actions';
 
 
 class EscolherSelecaoCampea extends Component {
-    state = { selecaoCampeaSelecionada: '' }
-
     componentWillMount() {
         this.props.selecaoCampeaFetch();
-
-        if (this.props.selecao && this.state.selecaoCampeaSelecionada !== this.props.selecao[0].selecaoFifa) {
-            this.setState({ selecaoCampeaSelecionada: this.props.selecao[0].selecaoFifa });
-        }
     }
-
-    // componentDidMount() {
-    //     if (this.props.selecao && this.props.selecao[0].selecaoFifa !== '') {
-    //         this.setState({ selecaoCampeaSelecionada: this.props.selecao[0].selecaoFifa });
-    //     }
-    // }
 
     render() {
         if (this.props.loading === undefined || this.props.loading) {
             return <Spinner size="large" />;
         }
 
-        if (this.props.selecao && this.state.selecaoCampeaSelecionada !== this.props.selecao[0].selecaoFifa) {
-            this.setState({ selecaoCampeaSelecionada: this.props.selecao[0].selecaoFifa });
-            return <Spinner size="large" />;
-        }
-
-        if (this.props.selecao && this.state.selecaoCampeaSelecionada) {
+        if (this.props.selecao) {
             return (
                 <View>
                     <Picker
-                        selectedValue={this.state.selecaoCampeaSelecionada}
+                        selectedValue={this.props.selecao}
                         onValueChange={(itemValue, itemIndex) => {
-                            if (this.props.selecao && this.state.selecaoCampeaSelecionada !== itemValue) {
-                                this.setState({ selecaoCampeaSelecionada: itemValue });
-                            }
-
-                            const t = itemValue;
-                            this.props.setSelecaoCampea(t);
+                            this.props.setSelecaoCampea(itemValue);
                         }}
                     >
                         <Picker.Item label="Brasil" value='BRA' />
                         <Picker.Item label="Rússia" value='RUS' />
                     </Picker>
-                    
                 </View>
             );
-        }
-        
-        return (
-            <View>
-                <Picker
-                    onValueChange={(itemValue, itemIndex) => { 
-                        this.props.setSelecaoCampea(itemValue);
-                    }}
-                >
-                    <Picker.Item label="Brasil" value='BRA' />
-                    <Picker.Item label="Rússia" value='RUS' />
-                </Picker>
-                
-            </View>
-        );
-    }
+        }      
+
+        return <Spinner size='large' />
+}
 }
 
 const estado = dados => {
