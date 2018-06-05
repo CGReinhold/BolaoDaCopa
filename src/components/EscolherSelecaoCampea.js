@@ -15,24 +15,20 @@ class EscolherSelecaoCampea extends Component {
             return <Spinner size="large" />;
         }
 
-        if (this.props.selecao) {
-            return (
-                <View>
-                    <Picker
-                        selectedValue={this.props.selecao}
-                        onValueChange={(itemValue, itemIndex) => {
-                            this.props.setSelecaoCampea(itemValue);
-                        }}
-                    >
-                        <Picker.Item label="Brasil" value='BRA' />
-                        <Picker.Item label="Rússia" value='RUS' />
-                    </Picker>
-                </View>
-            );
-        }      
-
-        return <Spinner size='large' />
-}
+        return (
+            <View>
+                <Picker
+                    selectedValue={this.props.selecao}
+                    onValueChange={(itemValue, itemIndex) => {
+                        this.props.setSelecaoCampea(itemValue);
+                    }}
+                >
+                    <Picker.Item label="Brasil" value='BRA' />
+                    <Picker.Item label="Rússia" value='RUS' />
+                </Picker>
+            </View>
+        );
+    }
 }
 
 const estado = dados => {

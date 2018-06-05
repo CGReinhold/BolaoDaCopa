@@ -22,6 +22,8 @@ export const selecaoCampeaFetch = () => {
             
             dispatch({ type: SELECAOCAMPEA_SUCCESS, payload: { selecao: apostaSelecaoCampea } });
         });
+
+        dispatch({ type: SELECAOCAMPEA_SUCCESS, payload: { selecao: 'BRA' } }); 
     };
 };
 
