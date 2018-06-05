@@ -15,6 +15,10 @@ class DrawerContent extends Component {
     Actions.apostas();
   }
 
+  onSelecaoCampeaPress() {
+    Actions.selecaoCampea();
+  }
+
   onRankingPress() {
     Actions.ranking();
   }
@@ -27,6 +31,9 @@ class DrawerContent extends Component {
         </View>
         <DrawerButton icon={Images.dice} onPress={this.onApostasPress.bind(this)}>
           Minhas apostas
+        </DrawerButton>
+        <DrawerButton icon={Images.trophy} onPress={this.onSelecaoCampeaPress.bind(this)}>
+          Selecao campeã
         </DrawerButton>
         <DrawerButton icon={Images.trophy} onPress={this.onRankingPress.bind(this)}>
           Ranking

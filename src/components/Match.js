@@ -81,7 +81,6 @@ const styles = {
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center', 
-    underlineColorAndroid: 'rgb(0, 0, 0)'
   },
   textCenter: {
     fontSize: 13,

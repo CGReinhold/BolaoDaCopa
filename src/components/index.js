@@ -5,6 +5,7 @@ import GamesResults from './GamesResults';
 import ListGames from './ListGames';
 import Apostas from './Apostas';
 import EscolherSelecaoCampea from './EscolherSelecaoCampea';
+import Ranking from './Ranking';
 
 export * from './DrawerContent';
 export * from './SplashScreen';
@@ -15,3 +16,4 @@ export { GamesResults };
 export { ListGames };
 export { Apostas };
 export { EscolherSelecaoCampea };
+export { Ranking };

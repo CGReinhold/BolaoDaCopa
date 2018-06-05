@@ -6,8 +6,6 @@ import { SELECAOCAMPEA_LOADING,
 const INITIAL_STATE = {};    
 
 export default (state = INITIAL_STATE, action) => {
-    if (!state) state = {};
-    
     switch (action.type) {
       case SELECAOCAMPEA_LOADING:
         return { ...state, loading: true };

@@ -5,8 +5,6 @@ import { SELECOES_LOADING,
 const INITIAL_STATE = {};    
 
 export default (state = INITIAL_STATE, action) => {
-    if (!state) state = {};
-    
     switch (action.type) {
       case SELECOES_LOADING:
         return { ...state, loading: true };

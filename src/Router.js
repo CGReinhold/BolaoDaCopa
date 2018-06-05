@@ -7,7 +7,8 @@ import {
   DrawerContent,  
   GamesResults,
   Apostas,
-  EscolherSelecaoCampea
+  EscolherSelecaoCampea,
+  Ranking
 } from './components';
 
 const sceneConfig = {
@@ -52,7 +53,8 @@ const RouterComponent = () => {
             <Scene key="jogos" component={GamesResults} title="Jogos" {...sceneConfig} />
           </Drawer>
           <Scene key="apostas" component={Apostas} title="Minhas apostas" {...sceneConfig} />
-          <Scene key="ranking" component={EscolherSelecaoCampea} title="Seleção campeã" {...sceneConfig} />          
+          <Scene key="selecaoCampea" component={EscolherSelecaoCampea} title="Seleção campeã" {...sceneConfig} />
+          <Scene key="ranking" component={Ranking} title="Ranking" {...sceneConfig} />
         </Scene>
         
       </Scene>

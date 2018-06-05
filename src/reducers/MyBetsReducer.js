@@ -7,7 +7,6 @@ import {
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
-  if (!state) state = {};
   switch (action.type) {
     case BETS_FETCH_SUCCESS:
       return { myBets: action.payload, loading: false };

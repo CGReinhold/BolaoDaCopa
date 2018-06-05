@@ -26,3 +26,6 @@ export const SELECOES_SUCCESS = 'selecoes_success';
 export const SELECAOCAMPEA_LOADING = 'SELECAOCAMPEA_LOADING';
 export const SELECAOCAMPEA_SUCCESS = 'SELECAOCAMPEA_SUCCESS';
 export const SETSELECAOCAMPEA = 'SETSELECAOCAMPEA';
+
+export const RANKING_LOADING = 'ranking_loading';
+export const RANKING_FETCH_SUCCESS = 'ranking_fetch_success';
