@@ -33,11 +33,13 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
     console.log('>> partidaID: ', JSON.stringify(context.params.partidaID))
     const db = admin.database();
     
-    db.ref('/matches/' + context.params.partidaID).once('value', definicaoPartida => {
-      console.log('>> Partida - ', JSON.stringify(definicaoPartida));
+    let awayScorePartida = 0;
+    let homeScorePartida = 0;
 
-      const awayScorePartida = parseInt(definicaoPartida.away_score);
-      const homeScorePartida = parseInt(definicaoPartida.home_score);
+    db.ref('/matches/' + context.params.partidaID).once('value', definicaoPartida => {
+       
+      awayScorePartida = parseInt(definicaoPartida.val().away_score);
+      homeScorePartida = parseInt(definicaoPartida.val().home_score);
 
       db.ref('/users').once('value', usuariosBase => {
         let definicaoUsuarios = usuariosBase.val();
@@ -45,8 +47,15 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
         const listaUsuarios = returnArrayFromObject(definicaoUsuarios);
 
         listaUsuarios.forEach(usuario => {
-          const apostaUsuario = usuario.definicaoUsuario[parseInt(definicaoPartida.name)];  
+          console.log('===========================================================');
+          console.log('>> Partida - ', JSON.stringify(definicaoPartida.val()));
+          console.log('away: ', awayScorePartida);
+          console.log('home: ', homeScorePartida);
           
+          console.log(' >> Usuário - ', JSON.stringify(usuario));
+          const apostaUsuario = usuario.definicaoUsuario[definicaoPartida.val().name];  
+          console.log(' >> Aposta do usuário: ', JSON.stringify(apostaUsuario));
+
           let aposta = { awayScore: 0, homeScore: 0 };
           if(apostaUsuario){
               aposta = { awayScore: parseInt(apostaUsuario.awayScore), homeScore: parseInt(apostaUsuario.homeScore) };
@@ -83,8 +92,19 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
             }
           }
 
+          console.log('Processamento de pontuação realizado: ', JSON.stringify({ total: pontuacaoPartida, aposta: apostaUsuario }))
+
           //Criar rotina para totalizar com o que já está no banco
-          
+          const dadosUsuario = usuario.definicaoUsuario["dados"];
+          console.log("Dados: ", JSON.stringify(dadosUsuario));
+          if(dadosUsuario && dadosUsuario.pontuacao){
+            pontuacaoPartida = (pontuacaoPartida + parseInt(dadosUsuario.pontuacao));
+            dadosUsuario.pontuacao = pontuacaoPartida;
+          }
+
+          console.log('Total pontos usuário: ', pontuacaoPartida.toString());
+          console.log('Identificação usuário: ', usuario.usuario);
+          db.ref(`/users/${usuario.usuario}/dados`).set({ dadosUsuario });
         });
 
       });
