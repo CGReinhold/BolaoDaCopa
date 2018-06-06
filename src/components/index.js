@@ -9,6 +9,7 @@ import Ranking from './Ranking';
 
 export * from './DrawerContent';
 export * from './SplashScreen';
+export * from './Regras';
 export { LoginForm };
 export { Main };
 export { MyBets };

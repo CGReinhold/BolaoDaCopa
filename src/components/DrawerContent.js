@@ -23,6 +23,10 @@ class DrawerContent extends Component {
     Actions.ranking();
   }
 
+  onRegrasPress() {
+    Actions.regras();
+  }
+
   render() {
     return (
       <View>
@@ -32,11 +36,14 @@ class DrawerContent extends Component {
         <DrawerButton icon={Images.dice} onPress={this.onApostasPress.bind(this)}>
           Minhas apostas
         </DrawerButton>
-        <DrawerButton icon={Images.trophy} onPress={this.onSelecaoCampeaPress.bind(this)}>
-          Selecao campeã
+        <DrawerButton icon={Images.bet} onPress={this.onSelecaoCampeaPress.bind(this)}>
+          Ponto bônus
         </DrawerButton>
         <DrawerButton icon={Images.trophy} onPress={this.onRankingPress.bind(this)}>
           Ranking
+        </DrawerButton>
+        <DrawerButton icon={Images.rules} onPress={this.onRegrasPress.bind(this)}>
+          Regras
         </DrawerButton>
         <DrawerButton icon={Images.logout} onPress={this.onLogoutPress.bind(this)}>
           Sair

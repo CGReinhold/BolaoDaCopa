@@ -29,9 +29,9 @@ class Match extends Component {
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
           <Text style={styles.textStyleHome}>{match.home_team[0].fifaCode}</Text>
-          <Text style={styles.resultTextCenter}>{match.home_score ? match.home_score : '0'}</Text>  
+          <Text style={styles.resultTextCenter}>{match.finished ? (match.home_score ? match.home_score : '0') : ''}</Text>  
           <Text style={styles.textCenter}>x</Text>
-          <Text style={styles.resultTextCenter}>{match.away_score ? match.away_score : '0'}</Text>
+          <Text style={styles.resultTextCenter}>{match.finished ? (match.away_score ? match.away_score : '0') : ''}</Text>
           <Text style={styles.textStyleAway}>{match.away_team[0].fifaCode}</Text>
           <Image style={styles.imageStyle} source={{ uri: match.away_team[0].flag }} />
         </View>

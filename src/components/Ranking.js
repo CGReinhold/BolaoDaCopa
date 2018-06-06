@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Spinner } from './common';
 import { usersFetch } from '../actions';
 
@@ -10,15 +10,32 @@ class Ranking extends Component {
     this.props.usersFetch();
   }
 
+  renderItem = ({ item }) => {
+    return (
+      <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#efefef' }}>
+        <Text style={{ fontSize: 20, flex: 3 }}>{item.nome}</Text>
+        <Text style={{ fontSize: 20, flex: 1 }}>{item.pontuacao}</Text>
+        <Text style={{ fontSize: 20, flex: 1 }}>{item.pontuacaoVeia}</Text>
+      </View>
+    );
+  }
+
   render() {
     if (this.props.loading === undefined || this.props.loading) {
       return <Spinner size="large" />;
     }
 
-    //TODO: exibir aqui uma ListView com os dados de this.props.users
     return (
       <View>
-        <Text>teste</Text>
+        <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 4, borderBottomColor: '#cfcfcf' }}>
+          <Text style={{ fontSize: 22, flex: 3, fontWeight: 'bold' }}>{'Pessoa'}</Text>
+          <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{'Pontos'}</Text>
+          <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{'PV'}</Text>
+        </View>
+        <FlatList
+          data={this.props.users}
+          renderItem={this.renderItem}
+        />
       </View>
     );
   }

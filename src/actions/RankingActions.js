@@ -16,7 +16,12 @@ export const usersFetch = () => {
         const listRanking = [];
         for (const users in snapshot.val()) {
           const user = snapshot.val()[users];
-          listRanking.push({ id: users, nome: user.dados.displayName || 'Anônimo', pontuacao: user.dados.pontuacao || 0 });
+          listRanking.push({ 
+            id: users, 
+            nome: user.dados.displayName || 'Anônimo', 
+            pontuacao: user.dados.pontuacao || 0, 
+            pontuacaoVeia: user.dados.pontuacaoVeia || 0
+          });
         }
         dispatch({ type: RANKING_FETCH_SUCCESS, payload: { users: listRanking } });
       })

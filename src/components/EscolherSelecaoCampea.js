@@ -126,7 +126,12 @@ class EscolherSelecaoCampea extends Component {
         }
 
         return (
-            <View>
+            <View style={{ margin: 10 }}>
+                <Text style={{ fontSize: 26, marginBottom: 10 }}>Ponto bônus</Text>
+                <Text style={{ fontSize: 18, marginBottom: 10 }}>
+                    O usuário possui a possibilidade de escolher até uma hora antes do inicio da competição quem será a seleção vencedora da copa.
+                    Caso acerte, o usuário terá um acrécimo de 10 pontos na pontuação final. Caso o usuário não escolha, será por padrão selecionado o Brasil.
+                </Text>
                 <Picker
                     selectedValue={this.props.selecao}
                     onValueChange={(itemValue, itemIndex) => {

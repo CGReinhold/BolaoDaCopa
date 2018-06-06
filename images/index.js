@@ -16,6 +16,8 @@ const images = {
     produto: require('./box.png'),
     trophy: require('./trophy.png'),
     dice: require('./dice.png'),
+    bet: require('./bet.png'),
+    rules: require('./rules.png'),
     emptyAvatar: EMPTY_AVATAR,
     emptyAvatarBig: EMPTY_AVATAR_BIG,
 };
