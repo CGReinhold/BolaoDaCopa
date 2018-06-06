@@ -61,6 +61,7 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
               aposta = { awayScore: parseInt(apostaUsuario.awayScore), homeScore: parseInt(apostaUsuario.homeScore) };
           }
 
+          let acertouVeia = false;
           let pontuacaoPartida = 0;
           if(aposta.awayScore === awayScorePartida)
             pontuacaoPartida = 1;
@@ -71,6 +72,7 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
           // Significa que o usuário acertou o placar na veia, ganhando o bônus por acertar o placar correto e também acertar quem ganha ou se era empate
           if(aposta.homeScore === homeScorePartida && aposta.awayScore === awayScorePartida){
             pontuacaoPartida = (pontuacaoPartida + 3);
+            acertouVeia = true;
           } else {
             // Aqui a rotina tem q identificar se a aposta do usuário foi empate ou se apostou na vitória de alguma equipe
             // Se for empate tem que verificar se o usuário acertou
@@ -100,6 +102,10 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
           if(dadosUsuario && dadosUsuario.pontuacao){
             pontuacaoPartida = (pontuacaoPartida + parseInt(dadosUsuario.pontuacao));
             dadosUsuario.pontuacao = pontuacaoPartida;
+
+            if(acertouVeia){
+              dadosUsuario.pontuacaoVeia = (parseInt(dadosUsuario.pontuacaoVeia) + 1);//Fazendo isso pq matemática de Script é daquele jeito
+            }
           }
 
           console.log('Total pontos usuário: ', pontuacaoPartida.toString());
