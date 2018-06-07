@@ -27,7 +27,8 @@ class Match extends Component {
           <Text style={styles.leftTitle}>{match.home_team[0].fifaCode}</Text>
           {match.bloqueado ?
             <Text style={styles.bloquedResultTextCenter}>{this.state.homeScore}</Text> :
-            <TextInput 
+            <TextInput
+              selectTextOnFocus 
               style={styles.resultTextCenter} 
               onChangeText={text => { 
                 this.setState({ homeScore: text }); 
@@ -41,6 +42,7 @@ class Match extends Component {
           {match.bloqueado ?
             <Text style={styles.bloquedResultTextCenter}>{this.state.awayScore}</Text> :
             <TextInput 
+              selectTextOnFocus 
               style={styles.resultTextCenter} 
               onChangeText={text => { 
                 this.setState({ awayScore: text }); 
