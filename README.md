@@ -7,6 +7,8 @@ npm install
 react-native eject
 react-native run-android
 ```
+
+```
 Times: 
 
 1 - Russia
@@ -41,3 +43,4 @@ Times:
 30 - Senegal
 31 - Colômbia
 32 - Japão
+```
