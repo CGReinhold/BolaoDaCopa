@@ -52,7 +52,7 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-android/
+
 ios/
 
 server/functions/node_modules
