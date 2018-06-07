@@ -25,7 +25,7 @@ const ExibirPartidas = ({ partidas }) => {
     return (
         <CardSection style={styles.listaPartidas}>
             <Match match={partidas[0]} />
-            <Match match={partidas[1]} />
+            {/* <Match match={partidas[1]} /> */}
         </CardSection>
     );
 };

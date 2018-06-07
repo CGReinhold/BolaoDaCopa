@@ -99,7 +99,7 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
           //Criar rotina para totalizar com o que já está no banco
           const dadosUsuario = usuario.definicaoUsuario["dados"];
           console.log("Dados: ", JSON.stringify(dadosUsuario));
-          if(dadosUsuario && dadosUsuario.pontuacao){
+          if(dadosUsuario){
             pontuacaoPartida = (pontuacaoPartida + parseInt(dadosUsuario.pontuacao));
             dadosUsuario.pontuacao = pontuacaoPartida;
 
@@ -110,7 +110,7 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
 
           console.log('Total pontos usuário: ', pontuacaoPartida.toString());
           console.log('Identificação usuário: ', usuario.usuario);
-          db.ref(`/users/${usuario.usuario}/dados`).set({ dadosUsuario });
+          db.ref(`/users/${usuario.usuario}/dados`).set({ pontuacaoVeia: dadosUsuario.pontuacaoVeia, pontuacao: dadosUsuario.pontuacao, displayName: dadosUsuario.displayName });
         });
 
       });
