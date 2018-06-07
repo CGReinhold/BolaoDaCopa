@@ -10,10 +10,36 @@ class Apostas extends Component {
         this.props.myBetsFetch();
     }
 
+    filtrarJogosMataMata(rodada) {
+        let todosJogos = this.props.listaGruposEJogos;
+
+        if (rodada > 3) {
+            if (rodada === 4) {
+                todosJogos = todosJogos.filter(gruposValidos => gruposValidos.name === 'Oitavas');
+            }
+
+            if (rodada === 5) {
+                todosJogos = todosJogos.filter(gruposValidos => gruposValidos.name === 'Quartas');
+            }
+
+            if (rodada === 6) {
+                todosJogos = todosJogos.filter(gruposValidos => gruposValidos.name === 'Semis');
+            }
+
+            if (rodada === 7) {
+                todosJogos = todosJogos.filter(gruposValidos => gruposValidos.name === 'Final');
+            }
+        } else {
+            todosJogos = todosJogos.filter(gruposValidos => gruposValidos.name !== 'Oitavas' && gruposValidos.name !== 'Quartas' && gruposValidos.name !== 'Semis' && gruposValidos.name !== 'Final');
+        }
+
+        return todosJogos;
+    }
+
     jogosDaRodada(rodada) {
-        const todosJogos = this.props.listaGruposEJogos;
-        
-        return todosJogos.map(item => {
+        const jogos = this.filtrarJogosMataMata(rodada);
+        //const jogos = this.props.listaGruposEJogos;
+        return jogos.map(item => {
            const partidasGrupos = item.matches.filter(partidas => partidas.matchday === rodada);
            return { name: item.name, uid: item.uid, partidas: partidasGrupos };
         });       
@@ -47,6 +73,10 @@ class Apostas extends Component {
                 <ListGames title='1ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(1))} />
                 <ListGames title='2ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(2))} />
                 <ListGames title='3ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(3))} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(4))} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(5))} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(6))} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(7))} />
             </Pages>
         );
     }

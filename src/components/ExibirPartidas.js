@@ -1,11 +1,17 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { CardSection } from './common';
 import Match from './Match';
 import ChangeableMatch from './ChangeableMatch';
 
 const ExibirPartidas = ({ partidas }) => {
     const bloqueioApostas = Date.UTC(2018, 6, 14, 14, 0, 0, 0);
+
+    if (partidas === null || (partidas && (partidas.length === 0 || partidas[0].away_team.length === 0))) {
+        return (<CardSection style={styles.listaPartidas}>
+            <Text>Nenhum jogo</Text>
+        </CardSection>);
+    }
 
     if (partidas && partidas[0].home_aposta && bloqueioApostas > Date.now()) {
         return (
