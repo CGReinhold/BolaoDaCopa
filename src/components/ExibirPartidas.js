@@ -4,8 +4,22 @@ import { CardSection } from './common';
 import Match from './Match';
 import ChangeableMatch from './ChangeableMatch';
 
+function listaPartidas(partidas, changeable) {
+    const p = [];
+    for (let i = 0; i < partidas.length; i++){
+        if (partidas[i].away_team.length && partidas[i].home_team.length) {
+            if (changeable) {
+                p.push(<ChangeableMatch match={partidas[i]} />);
+            } else {
+                p.push(<Match match={partidas[i]} />);
+            }
+        }
+    }
+    return p;
+}
+
 const ExibirPartidas = ({ partidas }) => {
-    const bloqueioApostas = Date.UTC(2018, 6, 14, 14, 0, 0, 0);
+    // const bloqueioApostas = Date.UTC(2018, 6, 14, 14, 0, 0, 0);
 
     if (partidas === null || (partidas && (partidas.length === 0 || partidas[0].away_team.length === 0))) {
         return (<CardSection style={styles.listaPartidas}>
@@ -13,19 +27,17 @@ const ExibirPartidas = ({ partidas }) => {
         </CardSection>);
     }
 
-    if (partidas && partidas[0].home_aposta && bloqueioApostas > Date.now()) {
+    if (partidas && partidas[0].home_aposta) {
         return (
             <CardSection style={styles.listaPartidas}>
-                <ChangeableMatch match={partidas[0]} />
-                <ChangeableMatch match={partidas[1]} />
+                {listaPartidas(partidas, true)}
             </CardSection>
              );
     }
 
     return (
         <CardSection style={styles.listaPartidas}>
-            <Match match={partidas[0]} />
-            {/* <Match match={partidas[1]} /> */}
+            {listaPartidas(partidas, false)}
         </CardSection>
     );
 };

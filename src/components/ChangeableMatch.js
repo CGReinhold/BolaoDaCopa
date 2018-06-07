@@ -25,25 +25,31 @@ class Match extends Component {
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
           <Text style={styles.leftTitle}>{match.home_team[0].fifaCode}</Text>
-          <TextInput 
-            style={styles.resultTextCenter} 
-            onChangeText={text => { 
-              this.setState({ homeScore: text }); 
-              this.props.setBet({ match: match.name, homeScore: text, awayScore: this.state.awayScore });
-            }}
-            value={this.state.homeScore}
-            keyboardType={'numeric'}
-          />
+          {match.bloqueado ?
+            <Text style={styles.bloquedResultTextCenter}>{this.state.homeScore}</Text> :
+            <TextInput 
+              style={styles.resultTextCenter} 
+              onChangeText={text => { 
+                this.setState({ homeScore: text }); 
+                this.props.setBet({ match: match.name, homeScore: text, awayScore: this.state.awayScore });
+              }}
+              value={this.state.homeScore}
+              keyboardType={'numeric'}
+            />
+          }
           <Text style={styles.textCenter}>X</Text>
-          <TextInput 
-            style={styles.resultTextCenter} 
-            onChangeText={text => { 
-              this.setState({ awayScore: text }); 
-              this.props.setBet({ match: match.name, homeScore: this.state.homeScore, awayScore: text });
-            }}
-            value={this.state.awayScore}
-            keyboardType={'numeric'}
-          />
+          {match.bloqueado ?
+            <Text style={styles.bloquedResultTextCenter}>{this.state.awayScore}</Text> :
+            <TextInput 
+              style={styles.resultTextCenter} 
+              onChangeText={text => { 
+                this.setState({ awayScore: text }); 
+                this.props.setBet({ match: match.name, homeScore: this.state.homeScore, awayScore: text });
+              }}
+              value={this.state.awayScore}
+              keyboardType={'numeric'}
+            />
+          }
           <Text style={styles.rightTitle}>{match.away_team[0].fifaCode}</Text>
           <Image style={styles.imageStyle} source={{ uri: match.away_team[0].flag }} />
         </View>
@@ -107,7 +113,15 @@ const styles = {
     fontWeight: 'bold',
     textAlign: 'center',
     backgroundColor: 'white'    
-  }
+  },
+  bloquedResultTextCenter:
+  {
+    flex: 1,
+    fontSize: 22,
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center', 
+  },
   // inputStyle: {
   //   height: 50,
   //   flex: 2
