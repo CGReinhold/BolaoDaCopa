@@ -43,7 +43,7 @@ class DrawerContent extends Component {
           Ranking
         </DrawerButton>
         <DrawerButton icon={Images.rules} onPress={this.onRegrasPress.bind(this)}>
-          Regras
+          Regras e Funcionamento
         </DrawerButton>
         <DrawerButton icon={Images.logout} onPress={this.onLogoutPress.bind(this)}>
           Sair
