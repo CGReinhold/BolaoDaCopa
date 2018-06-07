@@ -18,20 +18,32 @@ export const usersFetch = () => {
           const user = snapshot.val()[users];
           listRanking.push({ 
             id: users, 
-            nome: user.dados.displayName || 'Anônimo', 
-            pontuacao: user.dados.pontuacao || 0, 
-            pontuacaoVeia: user.dados.pontuacaoVeia || 0
+            nome: user.dados.dadosUsuario.displayName || 'Anônimo', 
+            pontuacao: user.dados.dadosUsuario.pontuacao || 0, 
+            pontuacaoVeia: user.dados.dadosUsuario.pontuacaoVeia || 0
           });
         }
+
+        listRanking.sort(compare);
         dispatch({ type: RANKING_FETCH_SUCCESS, payload: { users: listRanking } });
       })
       .catch((err) => {
-        console.log('erro');
         dispatch({ type: RANKING_FETCH_SUCCESS, payload: JSON.stringify(err) });
       });
     } catch (err) {
-      console.log('erro');
       dispatch({ type: RANKING_FETCH_SUCCESS, payload: { erro: JSON.stringify(err) } });
     }
   };
 };
+
+function compare(a, b) {
+  if (a.pontuacao < b.pontuacao) {
+    return 1;
+  } if (a.pontuacao > b.pontuacao) {
+    return -1;
+  }
+  if (a.pontuacaoVeia > b.pontuacaoVeia) {
+    return -1;
+  }
+  return 1;
+}

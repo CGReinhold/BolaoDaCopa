@@ -10,12 +10,13 @@ class Ranking extends Component {
     this.props.usersFetch();
   }
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item, index }) => {
     return (
       <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#efefef' }}>
-        <Text style={{ fontSize: 20, flex: 3 }}>{item.nome}</Text>
-        <Text style={{ fontSize: 20, flex: 1 }}>{item.pontuacao}</Text>
-        <Text style={{ fontSize: 20, flex: 1 }}>{item.pontuacaoVeia}</Text>
+      <Text style={{ fontSize: 20, flex: 1 }}>{index + 1}</Text>
+        <Text style={{ fontSize: 20, flex: 5 }}>{item.nome}</Text>
+        <Text style={{ fontSize: 20, flex: 2 }}>{item.pontuacao}</Text>
+        <Text style={{ fontSize: 20, flex: 2 }}>{item.pontuacaoVeia}</Text>
       </View>
     );
   }
@@ -28,9 +29,10 @@ class Ranking extends Component {
     return (
       <View>
         <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 4, borderBottomColor: '#cfcfcf' }}>
-          <Text style={{ fontSize: 22, flex: 3, fontWeight: 'bold' }}>{'Pessoa'}</Text>
-          <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{'Pontos'}</Text>
-          <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{'PV'}</Text>
+          <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{''}</Text>
+          <Text style={{ fontSize: 22, flex: 5, fontWeight: 'bold' }}>{'Pessoa'}</Text>
+          <Text style={{ fontSize: 22, flex: 2, fontWeight: 'bold' }}>{'Pontos'}</Text>
+          <Text style={{ fontSize: 22, flex: 2, fontWeight: 'bold' }}>{'PV'}</Text>
         </View>
         <FlatList
           data={this.props.users}
