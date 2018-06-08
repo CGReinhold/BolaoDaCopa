@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Image, Keyboard, StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Input, Spinner } from './common';
-import { emailChanged, nameChanged, passwordChanged, createUser, loginUser, changeToRegister } from '../actions';
+import { emailChanged, nameChanged, passwordChanged, createUser, loginUser, changeToRegister, changeToLogin } from '../actions';
 import Images from '../../images';
 
 class LoginForm extends Component {
@@ -32,6 +32,11 @@ class LoginForm extends Component {
         </TouchableNativeFeedback>
       );
     }
+    return (
+      <TouchableNativeFeedback onPress={() => this.props.changeToLogin()}>
+        <Text style={styles.button}>Login</Text>
+      </TouchableNativeFeedback>
+    );
   }
 
   renderScene() {
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
   },
   form: {
     alignItems: 'center',
-    height: 280,
+    height: 310,
     alignSelf: 'stretch',
     marginRight: 50,
     marginLeft: 50
@@ -101,4 +106,4 @@ const mapStateToProps = state => {
   return { email, name, password, error, loading, registering };
 };
 
-export default connect(mapStateToProps, { emailChanged, nameChanged, passwordChanged, createUser, loginUser, changeToRegister })(LoginForm);
+export default connect(mapStateToProps, { emailChanged, nameChanged, passwordChanged, createUser, loginUser, changeToRegister, changeToLogin })(LoginForm);

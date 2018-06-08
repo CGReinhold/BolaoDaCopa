@@ -8,7 +8,6 @@ import {
 
 export const usersFetch = () => {
   return (dispatch) => {
-    console.log('caiu aqui');
     dispatch({ type: RANKING_LOADING });
     try {
       firebase.database().ref('/users')

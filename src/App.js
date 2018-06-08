@@ -10,18 +10,16 @@ class App extends Component {
 
   componentDidMount() {
     console.ignoredYellowBox = ['Setting a timer'];
-      
-    firebase.initializeApp({
-      apiKey: 'AIzaSyAoOXStY9OmYkuiob-z21_gd-gxPAKB53g',
-      authDomain: 'bolaodacopa-6a79b.firebaseapp.com',
-      databaseURL: 'https://bolaodacopa-6a79b.firebaseio.com',
-      projectId: 'bolaodacopa-6a79b',
-      storageBucket: 'bolaodacopa-6a79b.appspot.com',
-      messagingSenderId: '908824913699'
-    });
-
-    // firebase.auth().onAuthStateChanged((user) => {
-    // });
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: 'AIzaSyAoOXStY9OmYkuiob-z21_gd-gxPAKB53g',
+        authDomain: 'bolaodacopa-6a79b.firebaseapp.com',
+        databaseURL: 'https://bolaodacopa-6a79b.firebaseio.com',
+        projectId: 'bolaodacopa-6a79b',
+        storageBucket: 'bolaodacopa-6a79b.appspot.com',
+        messagingSenderId: '908824913699'
+      });
+    }
   }
 
   render() {

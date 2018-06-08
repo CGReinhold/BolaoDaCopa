@@ -5,26 +5,29 @@ import ExibirPartida from './ExibirPartidas';
 
 
 const ListGames = ({ title, jogosPorGruposDaRodada }) => {
-                return (
-                    <View style={styles.container} >
-                        <CardSection style={styles.center}>
-                            <Text >{title}</Text>                        
-                        </CardSection>
-                        <CardSection>
-                            <FlatList 
-                                    keyboardShowPersistTaps 
-                                    data={jogosPorGruposDaRodada}
-                                    keyExtractor={(item, index) => item.uid + index.toString()}
-                                    renderItem={({ item }) => <View key={item.uid} >
-                                                                    <CardSection style={styles.center}>
-                                                                        <Text>{item.name}</Text>
-                                                                    </CardSection>
-                                                                    <ExibirPartida partidas={item.partidas} />
-                                                                </View>} 
-                            />
-                        </CardSection>
-                    </View>
-                );
+  return (
+    <View style={styles.container}>
+      <CardSection style={styles.center}>
+        <Text >{title}</Text>
+      </CardSection>
+      <CardSection>
+        <FlatList 
+          keyboardShowPersistTaps
+          data={jogosPorGruposDaRodada}
+          keyExtractor={(item, index) => item.uid + index.toString()}
+          renderItem={({ item }) => (
+            <View key={item.uid} >
+              <CardSection style={styles.center}>
+                <Text>{item.name}</Text>
+              </CardSection>
+              <ExibirPartida partidas={item.partidas} />
+              <View><Text >{'   '}</Text></View>
+            </View>
+          )} 
+        />
+      </CardSection>
+    </View>
+  );
 };
 
 
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
   },
 
   center: {
-      justifyContent: 'center'
+    justifyContent: 'center'
   }  
 });
 

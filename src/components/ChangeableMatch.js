@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Image, Text, TextInput, View } from 'react-native';
+import { Image, Text, TextInput, View, KeyboardAvoidingView } from 'react-native';
 import moment from 'moment';
 import { setBet } from '../actions';
 
@@ -19,9 +19,8 @@ class Match extends Component {
   render() {
     const { match } = this.props;
 
-    //TODO: Descobrir porque está lento quando vai trocar de text input selecionado
     return (
-      <View style={styles.parentView}>
+      <KeyboardAvoidingView style={styles.parentView} behavior="padding" enabled>
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
           <Text style={styles.leftTitle}>{match.home_team[0].fifaCode}</Text>
@@ -58,7 +57,7 @@ class Match extends Component {
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.textCenter}>{moment(new Date(match.date)).format('DD/MM/YYYY HH:mm')}</Text>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

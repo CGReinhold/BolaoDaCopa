@@ -5,7 +5,8 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  CHANGE_TO_REGISTER
+  CHANGE_TO_REGISTER,
+  CHANGE_TO_LOGIN
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,7 +21,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CHANGE_TO_REGISTER:
-    return { ...state, error: '', registering: true };
+      return { ...state, error: '', registering: true };
+    case CHANGE_TO_LOGIN:
+      return { ...state, error: '', registering: false };
     case EMAIL_CHANGED:
       return { ...state, error: '', email: action.payload };
     case NAME_CHANGED:
