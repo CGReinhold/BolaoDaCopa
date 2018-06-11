@@ -7,7 +7,7 @@ import ListGames from './ListGames';
 
 class Apostas extends Component {
     componentWillMount() {
-        this.props.myBetsFetch();
+        this.props.myBetsFetch(this.props.uid);
     }
 
     filtrarJogosMataMata(rodada) {
@@ -70,13 +70,13 @@ class Apostas extends Component {
 
         return (
             <Pages>
-                <ListGames title='1ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(1))} />
-                <ListGames title='2ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(2))} />
-                <ListGames title='3ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(3))} />
-                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(4))} />
-                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(5))} />
-                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(6))} />
-                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(7))} />
+                <ListGames title='1ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(1))} readOnly={this.props.uid} />
+                <ListGames title='2ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(2))} readOnly={this.props.uid} />
+                <ListGames title='3ª Rodada' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(3))} readOnly={this.props.uid} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(4))} readOnly={this.props.uid} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(5))} readOnly={this.props.uid} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(6))} readOnly={this.props.uid} />
+                <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.minhasApostasDaRodada(this.jogosDaRodada(7))} readOnly={this.props.uid} />
             </Pages>
         );
     }

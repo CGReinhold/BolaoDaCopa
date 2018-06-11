@@ -7,10 +7,13 @@ import {
 } from './types';
 
 
-export const myBetsFetch = () => {
+export const myBetsFetch = (uid) => {
   return (dispatch) => {
     dispatch({ type: BETS_LOADING });
-    const { uid } = firebase.auth().currentUser;
+    if (!uid) {
+      uid = firebase.auth().currentUser.uid;
+    }
+    // const { uid } = firebase.auth().currentUser;
 
     firebase.database().ref(`/users/${uid}`)
     .once('value', snapshot => {

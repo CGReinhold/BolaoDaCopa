@@ -16,7 +16,9 @@ export const usersFetch = () => {
         for (const users in snapshot.val()) {
           const user = snapshot.val()[users];
           listRanking.push({ 
+            uid: users,
             id: users, 
+            pago: user.dados.pago,
             nome: user.dados.displayName || 'Anônimo', 
             pontuacao: user.dados.pontuacao || 0, 
             pontuacaoVeia: user.dados.pontuacaoVeia || 0

@@ -4,7 +4,7 @@ import { CardSection } from './common';
 import ExibirPartida from './ExibirPartidas';
 
 
-const ListGames = ({ title, jogosPorGruposDaRodada }) => {
+const ListGames = ({ title, jogosPorGruposDaRodada, readOnly }) => {
   return (
     <View style={styles.container}>
       <CardSection style={styles.center}>
@@ -20,7 +20,7 @@ const ListGames = ({ title, jogosPorGruposDaRodada }) => {
               <CardSection style={styles.center}>
                 <Text>{item.name}</Text>
               </CardSection>
-              <ExibirPartida partidas={item.partidas} />
+              <ExibirPartida partidas={item.partidas} readOnly={readOnly} />
               <View><Text >{'   '}</Text></View>
             </View>
           )} 

@@ -4,7 +4,7 @@ import { Image, Text, TextInput, View, KeyboardAvoidingView } from 'react-native
 import moment from 'moment';
 import { setBet } from '../actions';
 
-class Match extends Component {
+class ChangeableMatch extends Component {
   state = { homeScore: null, awayScore: null }
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class Match extends Component {
         <View style={styles.viewStyle}>
           <Image style={styles.imageStyle} source={{ uri: match.home_team[0].flag }} />
           <Text style={styles.leftTitle}>{match.home_team[0].fifaCode}</Text>
-          {match.bloqueado ?
+          {match.bloqueado || this.props.readOnly ?
             <Text style={styles.bloquedResultTextCenter}>{this.state.homeScore}</Text> :
             <TextInput
               selectTextOnFocus 
@@ -38,7 +38,7 @@ class Match extends Component {
             />
           }
           <Text style={styles.textCenter}>X</Text>
-          {match.bloqueado ?
+          {match.bloqueado || this.props.readOnly ?
             <Text style={styles.bloquedResultTextCenter}>{this.state.awayScore}</Text> :
             <TextInput 
               selectTextOnFocus 
@@ -134,4 +134,4 @@ const mapStateToProps = state => {
   return { bets };
 };
 
-export default connect(mapStateToProps, { setBet })(Match);
+export default connect(mapStateToProps, { setBet })(ChangeableMatch);

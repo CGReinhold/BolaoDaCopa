@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import React, { Component } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Spinner } from './common';
 import { usersFetch } from '../actions';
 
@@ -10,14 +11,23 @@ class Ranking extends Component {
     this.props.usersFetch();
   }
 
+  _selectedItem(user) {
+    const { uid, nome } = user;
+    Actions.apostas({ uid, title: nome });
+  }
+
   renderItem = ({ item, index }) => {
+    const fontWeight = item.pago ? '900' : '300';
     return (
-      <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#efefef' }}>
-      <Text style={{ fontSize: 20, flex: 1 }}>{index + 1}</Text>
-        <Text style={{ fontSize: 20, flex: 5 }}>{item.nome}</Text>
-        <Text style={{ fontSize: 20, flex: 2 }}>{item.pontuacao}</Text>
-        <Text style={{ fontSize: 20, flex: 2 }}>{item.pontuacaoVeia}</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={() => this._selectedItem(item)}>
+        <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#efefef' }}>
+          <Text style={{ fontSize: 0, flex: 0 }}>{item.uid}</Text>
+          <Text style={{ fontSize: 20, flex: 1, fontWeight }}>{index + 1}</Text>
+          <Text style={{ fontSize: 20, flex: 5, fontWeight }}>{item.nome}</Text>
+          <Text style={{ fontSize: 20, flex: 2, fontWeight }}>{item.pontuacao}</Text>
+          <Text style={{ fontSize: 20, flex: 2, fontWeight }}>{item.pontuacaoVeia}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 
@@ -27,8 +37,9 @@ class Ranking extends Component {
     }
 
     return (
-      <View>
+      <ScrollView>
         <View style={{ margin: 5, flexDirection: 'row', borderBottomWidth: 4, borderBottomColor: '#cfcfcf' }}>
+          <Text style={{ fontSize: 0, flex: 0, fontWeight: 'bold' }}>{''}</Text>
           <Text style={{ fontSize: 22, flex: 1, fontWeight: 'bold' }}>{''}</Text>
           <Text style={{ fontSize: 22, flex: 5, fontWeight: 'bold' }}>{'Pessoa'}</Text>
           <Text style={{ fontSize: 22, flex: 2, fontWeight: 'bold' }}>{'Pontos'}</Text>
@@ -38,7 +49,7 @@ class Ranking extends Component {
           data={this.props.users}
           renderItem={this.renderItem}
         />
-      </View>
+      </ScrollView>
     );
   }
 }
