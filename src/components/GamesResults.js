@@ -10,7 +10,7 @@ class GamesResults extends Component {
   componentWillMount() {
     this.props.groupsAndGamesFetch();
   }
-
+  
   filtrarJogosMataMata(rodada) {
     let todosJogos = this.props.listaGruposEJogos;
 
@@ -52,15 +52,15 @@ class GamesResults extends Component {
     }
 
     return (
-      <Pages indicatorPosition='bottom' indicatorOpacity={0.40} indicatorColor='rgb(117, 117, 117)' >
-        <ListGames title='1ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(1)} />
-        <ListGames title='2ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(2)} />
-        <ListGames title='3ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(3)} />  
-        <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(4)} />              
-        <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(5)} />
-        <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(6)} />
-        <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(7)} />
-      </Pages>
+        <Pages indicatorPosition='bottom' indicatorOpacity={0.40} indicatorColor='rgb(117, 117, 117)' >      
+          <ListGames title='1ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(1)} />
+          <ListGames title='2ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(2)} />
+          <ListGames title='3ª Rodada' jogosPorGruposDaRodada={this.jogosDaRodada(3)} />  
+          <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(4)} />              
+          <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(5)} />
+          <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(6)} />
+          <ListGames title='Mata-Mata' jogosPorGruposDaRodada={this.jogosDaRodada(7)} />
+        </Pages>
     );
   }
 }

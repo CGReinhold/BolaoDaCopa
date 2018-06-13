@@ -17,6 +17,7 @@
     "react-native-pages": "^0.7.0",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-table-component": "^1.1.8",
+    "react-native-windows": "0.53.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
@@ -27,7 +28,8 @@
     "babel-preset-react-native": "4.0.0",
     "eslint-config-rallycoding": "^3.2.0",
     "jest": "22.3.0",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "16.2.0",
+    "rnpm-plugin-windows": "^0.2.8"
   },
   "jest": {
     "preset": "react-native"
