@@ -23,6 +23,9 @@ class DrawerContent extends Component {
     Actions.ranking();
   }
 
+  onRankingBolaoPress() {
+    Actions.rankingBolao();
+  }
   onRegrasPress() {
     Actions.regras();
   }
@@ -40,7 +43,10 @@ class DrawerContent extends Component {
           Ponto bônus
         </DrawerButton>
         <DrawerButton icon={Images.trophy} onPress={this.onRankingPress.bind(this)}>
-          Ranking
+          Ranking Geral
+        </DrawerButton>
+        <DrawerButton icon={Images.trophy} onPress={this.onRankingBolaoPress.bind(this)}>
+          Ranking Bolão
         </DrawerButton>
         <DrawerButton icon={Images.rules} onPress={this.onRegrasPress.bind(this)}>
           Regras e Funcionamento

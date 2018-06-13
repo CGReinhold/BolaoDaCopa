@@ -9,6 +9,7 @@ import {
   Apostas,
   EscolherSelecaoCampea,
   Ranking,
+  RankingBolao,
   Regras
 } from './components';
 
@@ -55,7 +56,8 @@ const RouterComponent = () => {
           </Drawer>
           <Scene key="apostas" component={Apostas} title="Minhas apostas" {...sceneConfig} />
           <Scene key="selecaoCampea" component={EscolherSelecaoCampea} title="Seleção campeã" {...sceneConfig} />
-          <Scene key="ranking" component={Ranking} title="Ranking" {...sceneConfig} />
+          <Scene key="ranking" component={Ranking} title="Ranking Geral" {...sceneConfig} />
+          <Scene key="rankingBolao" component={RankingBolao} title="Ranking Bolão" {...sceneConfig} />
           <Scene key="regras" component={Regras} title="Regras e Funcionamento" {...sceneConfig} />
         </Scene>
         
