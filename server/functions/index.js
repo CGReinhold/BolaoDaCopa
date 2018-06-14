@@ -110,7 +110,22 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
 
           console.log('Total pontos usuário: ', pontuacaoPartida.toString());
           console.log('Identificação usuário: ', usuario.usuario);
-          db.ref(`/users/${usuario.usuario}/dados`).set({ pontuacaoVeia: dadosUsuario.pontuacaoVeia, pontuacao: dadosUsuario.pontuacao, displayName: dadosUsuario.displayName });
+
+          const final = { pontuacaoVeia: dadosUsuario.pontuacaoVeia, 
+            pontuacao: dadosUsuario.pontuacao, 
+            displayName: dadosUsuario.displayName
+          };
+
+          
+          if(dadosUsuario.pago){
+            final.pago = dadosUsuario.pago;
+          }
+
+          if(dadosUsuario.selecao){
+            final.selecao = dadosUsuario.selecao;
+          }
+           
+          db.ref(`/users/${usuario.usuario}/dados`).set(final);
         });
 
       });
