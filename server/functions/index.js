@@ -132,3 +132,21 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
     });
   }
 });
+
+exports.bloqueiaSelecaoBonus = functions.database.ref('/users/{usuario}/dados/selecao').onUpdate((snapshot, context) => {
+  const before = snapshot.before.val();
+  const after = snapshot.after.val();
+
+  const db = admin.database();
+
+  if(before.alterouSelecao){
+    after.alterouSelecao = false;
+  }else{
+    after.alterouSelecao = true;
+    after.selecaoSelecionada = before.selecaoSelecionada;
+  }
+
+  console.log(JSON.stringify(after));
+  db.ref(`/users/${context.params.usuario}/dados/selecao`).set(after);
+
+});
