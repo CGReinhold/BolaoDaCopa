@@ -12,16 +12,19 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-function returnArrayFromObject(definicao){
-    let arrayData=[];
-    let i =0;
+function returnArrayFromObject(definicao) {
+  let arrayData = [];
+  let i = 0;
 
-    for(let prop of Object.keys(definicao)) {
-       arrayData[i] = { usuario: prop, definicaoUsuario: definicao[prop] }
-       i++;
+  for (let prop of Object.keys(definicao)) {
+    arrayData[i] = {
+      usuario: prop,
+      definicaoUsuario: definicao[prop]
     }
+    i++;
+  }
 
-    return arrayData;
+  return arrayData;
 }
 
 exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{partidaID}/finished').onUpdate((snapshot, context) => {
@@ -32,121 +35,121 @@ exports.calculaPontuacaoUsuariosDoJogo = functions.database.ref('/matches/{parti
 
     console.log('>> partidaID: ', JSON.stringify(context.params.partidaID))
     const db = admin.database();
-    
+
     let awayScorePartida = 0;
     let homeScorePartida = 0;
 
     db.ref('/matches/' + context.params.partidaID).once('value', definicaoPartida => {
-       
+
       awayScorePartida = parseInt(definicaoPartida.val().away_score);
       homeScorePartida = parseInt(definicaoPartida.val().home_score);
 
       db.ref('/users').once('value', usuariosBase => {
-        let definicaoUsuarios = usuariosBase.val();
-        console.log('>> Usuarios - ', JSON.stringify(definicaoUsuarios));
-        const listaUsuarios = returnArrayFromObject(definicaoUsuarios);
+        try {
+          let definicaoUsuarios = usuariosBase.val();
+          console.log('>> Usuarios - ', JSON.stringify(definicaoUsuarios));
+          const listaUsuarios = returnArrayFromObject(definicaoUsuarios);
 
-        listaUsuarios.forEach(usuario => {
-          console.log('===========================================================');
-          console.log('>> Partida - ', JSON.stringify(definicaoPartida.val()));
-          console.log('away: ', awayScorePartida);
-          console.log('home: ', homeScorePartida);
-          
-          console.log(' >> Usuário - ', JSON.stringify(usuario));
-          const apostaUsuario = usuario.definicaoUsuario[definicaoPartida.val().name];  
-          console.log(' >> Aposta do usuário: ', JSON.stringify(apostaUsuario));
+          listaUsuarios.forEach(usuario => {
+            console.log('===========================================================');
+            console.log('>> Partida - ', JSON.stringify(definicaoPartida.val()));
+            console.log('away: ', awayScorePartida);
+            console.log('home: ', homeScorePartida);
 
-          let aposta = { awayScore: 0, homeScore: 0 };
-          if(apostaUsuario){
-              aposta = { awayScore: parseInt(apostaUsuario.awayScore), homeScore: parseInt(apostaUsuario.homeScore) };
-          }
+            console.log(' >> Usuário - ', JSON.stringify(usuario));
+            const apostaUsuario = usuario.definicaoUsuario[definicaoPartida.val().name];
+            console.log(' >> Aposta do usuário: ', JSON.stringify(apostaUsuario));
 
-          let acertouVeia = false;
-          let pontuacaoPartida = 0;
-          if(aposta.awayScore === awayScorePartida)
-            pontuacaoPartida = 1;
+            let aposta = {
+              awayScore: 0,
+              homeScore: 0
+            };
+            if (apostaUsuario) {
+              aposta = {
+                awayScore: parseInt(apostaUsuario.awayScore),
+                homeScore: parseInt(apostaUsuario.homeScore)
+              };
+            }
 
-          if(aposta.homeScore === homeScorePartida)
-            pontuacaoPartida = (pontuacaoPartida + 1);//to fazendo assim por que o JavaScript é muito doido, só pra evitar erros
+            let acertouVeia = false;
+            let pontuacaoPartida = 0;
+            if (aposta.awayScore === awayScorePartida)
+              pontuacaoPartida = 1;
 
-          // Significa que o usuário acertou o placar na veia, ganhando o bônus por acertar o placar correto e também acertar quem ganha ou se era empate
-          if(aposta.homeScore === homeScorePartida && aposta.awayScore === awayScorePartida){
-            pontuacaoPartida = (pontuacaoPartida + 3);
-            acertouVeia = true;
-          } else {
-            // Aqui a rotina tem q identificar se a aposta do usuário foi empate ou se apostou na vitória de alguma equipe
-            // Se for empate tem que verificar se o usuário acertou
-            // Se o usuário apostou na vitória de alguma das equipes a rotina tem que verificar se o usuário acertou a equipe vencedora
+            if (aposta.homeScore === homeScorePartida)
+              pontuacaoPartida = (pontuacaoPartida + 1); //to fazendo assim por que o JavaScript é muito doido, só pra evitar erros
 
-            if(aposta.homeScore === aposta.awayScore){ //Usuário apostou em empate
-              if(awayScorePartida === homeScorePartida){ //Se a partida realmente terminou em empate
-                pontuacaoPartida = (pontuacaoPartida + 1);
-              }
-            }else{ //Se o usuário apostou na vitória de alguma seleção
-              if(awayScorePartida !== homeScorePartida){ //Se alguma seleção ganhou
-                 const isHomeTeamWinner = homeScorePartida > awayScorePartida; //Time da casa é o vencedor?
-                 const usuarioApostouTimeCasa = aposta.homeScore > aposta.awayScore; // O usuário apostou no time da casa?
+            // Significa que o usuário acertou o placar na veia, ganhando o bônus por acertar o placar correto e também acertar quem ganha ou se era empate
+            if (aposta.homeScore === homeScorePartida && aposta.awayScore === awayScorePartida) {
+              pontuacaoPartida = (pontuacaoPartida + 3);
+              acertouVeia = true;
+            } else {
+              // Aqui a rotina tem q identificar se a aposta do usuário foi empate ou se apostou na vitória de alguma equipe
+              // Se for empate tem que verificar se o usuário acertou
+              // Se o usuário apostou na vitória de alguma das equipes a rotina tem que verificar se o usuário acertou a equipe vencedora
 
-                 if(isHomeTeamWinner === usuarioApostouTimeCasa){ //Acertou o vencedor??
-                   pontuacaoPartida = (pontuacaoPartida + 1);
-                 }
+              if (aposta.homeScore === aposta.awayScore) { //Usuário apostou em empate
+                if (awayScorePartida === homeScorePartida) { //Se a partida realmente terminou em empate
+                  pontuacaoPartida = (pontuacaoPartida + 1);
+                }
+              } else { //Se o usuário apostou na vitória de alguma seleção
+                if (awayScorePartida !== homeScorePartida) { //Se alguma seleção ganhou
+                  const isHomeTeamWinner = homeScorePartida > awayScorePartida; //Time da casa é o vencedor?
+                  const usuarioApostouTimeCasa = aposta.homeScore > aposta.awayScore; // O usuário apostou no time da casa?
+
+                  if (isHomeTeamWinner === usuarioApostouTimeCasa) { //Acertou o vencedor??
+                    pontuacaoPartida = (pontuacaoPartida + 1);
+                  }
+                }
               }
             }
-          }
 
-          console.log('Processamento de pontuação realizado: ', JSON.stringify({ total: pontuacaoPartida, aposta: apostaUsuario }))
+            console.log('Processamento de pontuação realizado: ', JSON.stringify({
+              total: pontuacaoPartida,
+              aposta: apostaUsuario
+            }))
 
-          //Criar rotina para totalizar com o que já está no banco
-          const dadosUsuario = usuario.definicaoUsuario["dados"];
-          console.log("Dados: ", JSON.stringify(dadosUsuario));
-          if(dadosUsuario){
-            pontuacaoPartida = (pontuacaoPartida + parseInt(dadosUsuario.pontuacao));
-            dadosUsuario.pontuacao = pontuacaoPartida;
+            //Criar rotina para totalizar com o que já está no banco
+            const dadosUsuario = usuario.definicaoUsuario["dados"];
+            console.log("Dados: ", JSON.stringify(dadosUsuario));
+            if (dadosUsuario) {
+              pontuacaoPartida = (pontuacaoPartida + parseInt(dadosUsuario.pontuacao));
+              dadosUsuario.pontuacao = pontuacaoPartida;
 
-            if(acertouVeia){
-              dadosUsuario.pontuacaoVeia = (parseInt(dadosUsuario.pontuacaoVeia) + 1);//Fazendo isso pq matemática de Script é daquele jeito
+              if (acertouVeia) {
+                dadosUsuario.pontuacaoVeia = (parseInt(dadosUsuario.pontuacaoVeia) + 1); //Fazendo isso pq matemática de Script é daquele jeito
+              }
             }
-          }
 
-          console.log('Total pontos usuário: ', pontuacaoPartida.toString());
-          console.log('Identificação usuário: ', usuario.usuario);
+            console.log('Total pontos usuário: ', pontuacaoPartida.toString());
+            console.log('Identificação usuário: ', usuario.usuario);
 
-          const final = { pontuacaoVeia: dadosUsuario.pontuacaoVeia, 
-            pontuacao: dadosUsuario.pontuacao, 
-            displayName: dadosUsuario.displayName
-          };
+            const final = {
+              pontuacaoVeia: dadosUsuario.pontuacaoVeia,
+              pontuacao: dadosUsuario.pontuacao,
+              displayName: dadosUsuario.displayName
+            };
 
-          
-          if(dadosUsuario.pago){
-            final.pago = dadosUsuario.pago;
-          }
 
-          if(dadosUsuario.selecao){
-            final.selecao = dadosUsuario.selecao;
-          }
-           
-          db.ref(`/users/${usuario.usuario}/dados`).set(final);
-        });
+            if (dadosUsuario.pago) {
+              final.pago = dadosUsuario.pago;
+            }
 
+            if (dadosUsuario.selecao) {
+              final.selecao = dadosUsuario.selecao;
+            }
+
+            db.ref(`/users/${usuario.usuario}/dados`).set(final);
+          });
+        } catch (exp) {
+          console.log('Erro ao processar aposta do usuário: ' + exp.toString());
+        }
       });
     });
   }
 });
 
-exports.bloqueiaSelecaoBonus = functions.database.ref('/users/{usuario}/dados/selecao').onUpdate((snapshot, context) => {
-  const before = snapshot.before.val();
-  const after = snapshot.after.val();
-
-  const db = admin.database();
-
-  if(before.alterouSelecao){
-    after.alterouSelecao = false;
-  }else{
-    after.alterouSelecao = true;
-    after.selecaoSelecionada = before.selecaoSelecionada;
-  }
-
-  console.log(JSON.stringify(after));
-  db.ref(`/users/${context.params.usuario}/dados/selecao`).set(after);
-
+exports.armazenaSelecaoBKP = functions.database.ref('/users/{idUsuario}/dados/selecao/selecaoSelecionada').onUpdate((snapshot, context) => {
+    const db = admin.database();
+    db.ref(`/users/${context.params.idUsuario}/selecao`).set(snapshot.after.val());
 });
