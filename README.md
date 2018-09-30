@@ -1,5 +1,8 @@
 # BolaoDaCopa
 
+Este é o código fonte do aplicativo Easy Bolão disponível na [Play Store](https://play.google.com/store/apps/details?id=com.bolaodacopa).
+
+## Instalação para desenvolvedores
 ```
 git clone https://github.com/CGReinhold/BolaoDaCopa.git
 cd BolaoDaCopa
@@ -9,7 +12,7 @@ react-native run-android
 ```
 
 ```
-Times: 
+Lista de identificadores das seleções: 
 
 1 - Russia
 2 - Arábia saudita
